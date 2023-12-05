@@ -1,3 +1,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .responsive-container {
+        width: 100%;
+        padding: 0.625rem;
+        border: 2px;
+        /* Slate 400 from tailwind color template */
+        border-color: hex(#94a3b8); 
+        border-style: outset;
+        border-radius: 10px;
+    }
+
+    @media (min-width: 640px) {
+        .responsive-container {
+            width: 100%;
+            padding: 0.625rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .responsive-container {
+            width: 100%;
+            padding: 0.625rem;
+        }
+
+    }
+
+    @media (min-width: 960px) {
+        .responsive-container {
+            max-width: 960px;
+            padding: 1rem; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}
+
+@layer components {
+    .collection { 
+        margin-left: 1rem; 
+        margin-right: 1rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        
+        padding: 0.625rem;
+        
+        border-top: 2px;
+        border-top-color: hex(#94a3b8); 
+        border-top-style: solid;
+
+        border-bottom: 2px;
+        border-bottom-color: hex(#94a3b8);
+        border-bottom-style: solid;
+    }
+}
