@@ -22,14 +22,62 @@
 
         <main>
             <div class="responsive-container | my-5 | min-h-[75vh]">
+
+                <div aria-label="new collection button" class="pt-5 | flex flex-col content-center items-center">
+                    <div id="new-collection-button" class="peer | w-fit | p-3 rounded-lg | hover:bg-slate-700">
+                        <img src="/images/new_collection_borderless.svg" width="40px" height="40px" alt="icon for new collection button">         
+                    </div>
+                    <div class="opacity-0 peer-hover:opacity-50 | transition-all">
+                        <p>New Collection</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col content-center items-center | bg-slate-700 | p-6 m-5">
+                    <h3 class="text-2xl | m-5">Enter Collection Information</h3>
+                    <form action="/submit" method="post">
+                        <div class="mt-2 mb-2">
+                            <p class="mt-2 mb-2">Collection Title:</p>
+                            <input class="text-black" type="text" id="collection-title" name="collection-title" required>     
+                        </div>
+                        <div class="mt-2 mb-2">
+                            <p class="mt-2 mb-2">Collection Description:</p>
+                            <textarea class="text-black" id="collection-description" name="collection-description" cols="25" rows="5"></textarea>
+                        </div>
+                        <div class="mt-2 mb-2">
+                            <button type="cancel">cancel</button>
+                            <button type="submit">submit</button>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="collection">
                     <h1 class="text-3xl font-bold">
-                        Default collection
+                        Need to...
                     </h1>
                     <ul>
-                        <li>mayo</li>
-                        <li>honey</li>
-                        <li>bbq</li>
+                        <li>
+                            <div class="todo-item">
+                                <h2>Need to purchase honey</h2>
+                                <label for="checkbox">completed</label>
+                                <input type="checkbox" id="checkbox" name="checkbox">
+                                <p class="italic">created 12/06/2023. Due tommorow</p>
+                            </div>
+                        </li>
+                        <li> <div class="todo-item">
+                            <h2>Need to purchase honey</h2>
+                            <label for="checkbox">completed</label>
+                            <input type="checkbox" id="checkbox" name="checkbox">
+                        </div> </li>
+                        <li> <div class="todo-item">
+                            <h2>Need to purchase honey</h2>
+                            <label for="checkbox">completed</label>
+                            <input type="checkbox" id="checkbox" name="checkbox">
+                        </div></li>
+                        <li> <div class="todo-item">
+                            <h2>Need to purchase honey</h2>
+                            <label for="checkbox">completed</label>
+                            <input type="checkbox" id="checkbox" name="checkbox">
+                        </div></li>
                     </ul>
                 </div>
             </div>
