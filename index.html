@@ -28,27 +28,37 @@
                         <img src="/images/new_collection_borderless.svg" width="40px" height="40px" alt="icon for new collection button">         
                     </div>
                     <div class="opacity-0 peer-hover:opacity-50 | transition-all">
-                        <p>New Collection</p>
+                        <p>Add New Collection</p>
                     </div>
                 </div>
 
-                <div class="flex flex-col content-center items-center sm:content-start sm:items-start | bg-slate-700 | p-6 m-5">
-                    <h3 class="text-2xl | m-5">Enter Collection Information</h3>
+               
+                <!-- Toggled form to create new collections -->
+                <div id="new-collection-form" style="display: none" class="flex flex-col content-center items-center sm:content-start sm:items-start | bg-slate-700 | p-6 m-5">
+                    
+                    <h3 class="text-2xl | mb-5">Enter Collection Information</h3>
+                    
                     <form action="/submit" method="post">
-                        <div class="mt-2 mb-2">
-                            <p class="mt-2 mb-2">Collection Title:</p>
-                            <input class="text-black" type="text" id="collection-title" name="collection-title" required>     
+                        
+                        <div class="my-2">
+                            <p class="my-2">Collection Title:</p>
+                            <input class="text-black p-1" type="text" id="collection-title" name="collection-title" required>     
                         </div>
-                        <div class="mt-2 mb-2">
-                            <p class="mt-2 mb-2">Collection Description:</p>
-                            <textarea class="text-black" id="collection-description" name="collection-description" cols="25" rows="5"></textarea>
+                        
+                        <div class="my-2">
+                            <p class="my-2">Collection Description:</p>
+                            <textarea class="text-black p-1" id="collection-description" name="collection-description" cols="25" rows="5"></textarea>
                         </div>
-                        <div class="mt-2 mb-2">
-                            <button type="cancel">cancel</button>
-                            <button type="submit">submit</button>
+                        
+                        <div class="my-2">
+                            <button id="cancel-button" class="bg-sky-500 | py-1 px-2 mr-1 mt-5" type="cancel">cancel</button>
+                            <button id="create-button" class="bg-sky-500 | py-1 px-2 ml-1 mt-5" type="create">submit</button>
                         </div>
+                    
                     </form>
+                
                 </div>
+
 
                 <div class="collection">
                     <h1 class="text-3xl font-bold">
@@ -93,7 +103,8 @@
             </div>
         </footer>
 
-        
+        <script src="index.js">
+        </script>        
     </body>
 </html>
 
