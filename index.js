@@ -52,16 +52,14 @@ const secondList = new List(
 lists.push(defaultList, secondList)
 const listSection = document.getElementById("list-section")
 
-for (let list of lists) {
-  let newListHTML = `
-    <div class="bg-slate-700 | p-6 m-5">
-        <h3 class="text-3xl font-semibold | mb-5">${list.title}</h3>                 
-        <h4 class=" my-2">${list.description}<h4>
-        <p><i>Created ${list.creationDate}</i></p>
-        <input style="background-color: lightblue; width: 50%" type='text'>
-    </div>
-    `
-  const parser = new DOMParser()
-  const newList = parser.parseFromString(newListHTML, "text/html").body.firstChild
-  listSection.appendChild(newList)
-}
+let newListHTML = `
+<div class="bg-slate-700 | p-6 m-5 | min-h-[30rem]">
+    <h3 class="text-3xl font-semibold | mb-5">${defaultList.title}</h3>                 
+    <h4 class="text-lg font-semibold my-2">${defaultList.description}<h4>
+    <p><i>Created ${defaultList.creationDate}</i></p>
+    <input class="my-3" type='text'>
+</div>
+`
+const parser = new DOMParser()
+const newList = parser.parseFromString(newListHTML, "text/html").body.firstChild
+listSection.appendChild(newList)
