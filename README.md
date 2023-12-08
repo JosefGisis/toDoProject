@@ -39,5 +39,4 @@ Project Requirements:
       7. They change their appearance when completed (e.g. crossed out, color change, etc.).
       8. They have a position relative to other items within the same collection. 
       9. A method to reposition the TODO relative to the other items within the same collection. 
-    - All todo items need to display a condescending comment when items are checked-off. 
-
+    - All todo items need to display a condescending comment when items are checked-off.
