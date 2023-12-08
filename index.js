@@ -1,72 +1,67 @@
-import { Collection, DefaultCollection } from "./collections.js";
+import { List, DefaultList } from "./toDo.js"
 
 function clearFields() {
-  const collectionTitle = document.getElementById("collection-title");
-  const collectionDescription = document.getElementById(
-    "collection-description"
-  );
+  const listTitle = document.getElementById("list-title")
+  const listDescription = document.getElementById("list-description")
 
-  collectionTitle.value = "";
-  collectionDescription.value = "";
+  listTitle.value = ""
+  listDescription.value = ""
 }
 
 function checkTitleField() {
-  const collectionTitle = document.getElementById("collection-title");
-  const createButton = document.getElementById("create-button");
+  const listTitle = document.getElementById("list-title")
+  const createButton = document.getElementById("create-button")
 
-  createButton.style.backgroundColor = collectionTitle.value
-    ? "rgb(14 165 233)"
-    : "rgb(7, 89, 133)";
+  createButton.style.backgroundColor = listTitle.value ? "rgb(14 165 233)" : "rgb(7, 89, 133)"
 }
 
-function toggleCollectionForm() {
-  const newCollectionForm = document.getElementById("new-collection-form");
-  newCollectionForm.style.display =
-    newCollectionForm.style.display === "none" ? "block" : "none";
-  if (newCollectionForm.style.display === "block") checkTitleField();
+function toggleListForm() {
+  const newListForm = document.getElementById("new-list-form")
+  newListForm.style.display = newListForm.style.display === "none" ? "block" : "none"
+  if (newListForm.style.display === "block") checkTitleField()
 }
 
-function cancelCollection(e) {
-  const newCollectionForm = document.getElementById("new-collection-form");
-  e.preventDefault();
-  newCollectionForm.style.display = "none";
-  clearFields();
+function cancelList(e) {
+  const newListForm = document.getElementById("new-list-form")
+  e.preventDefault()
+  newListForm.style.display = "none"
+  clearFields()
 }
 
-const newCollectionButton = document.getElementById("new-collection-button");
-const cancelButton = document.getElementById("cancel-button");
-const createButton = document.getElementById("create-button");
-const collectionTitle = document.getElementById("collection-title");
+const newListButton = document.getElementById("new-list-button")
+const cancelButton = document.getElementById("cancel-button")
+const createButton = document.getElementById("create-button")
+const listTitle = document.getElementById("list-title")
 
-newCollectionButton.addEventListener("click", toggleCollectionForm);
-cancelButton.addEventListener("click", cancelCollection);
-collectionTitle.addEventListener("input", checkTitleField);
+newListButton.addEventListener("click", toggleListForm)
+cancelButton.addEventListener("click", cancelList)
+listTitle.addEventListener("input", checkTitleField)
 
 /**
  *
  **/
-const collections = [];
-const defaultCollection = new DefaultCollection(
+const lists = []
+const defaultList = new DefaultList(
   "Have You?",
-  "This is your default collection"
-);
-const secondCollection = new Collection(
+  "This is your default list"
+)
+const secondList = new List(
   "Shopping list",
   "this is my weekly shopping list"
-);
-collections.push(defaultCollection, secondCollection);
-const collectionSection = document.getElementById("collection-section");
+)
+lists.push(defaultList, secondList)
+const listSection = document.getElementById("list-section")
 
-for (let collection of collections) {
-  let newCollectionHTML = `
-    <div class="collection-card">
-        <h3 class="text-2xl text-lime-600 | mb-5">${collection.title}</h3>                 
-        <h4 style="font-size: 130%" class=" my-2">${collection.description}<h4>
-        <p><i>Created ${collection.creationDate}</i></p>
+for (let list of lists) {
+  let newListHTML = `
+    <div class="bg-slate-700 | p-6 m-5">
+        <h3 class="text-3xl font-semibold | mb-5">${list.title}</h3>                 
+        <h4 class=" my-2">${list.description}<h4>
+        <p><i>Created ${list.creationDate}</i></p>
         <input style="background-color: lightblue; width: 50%" type='text'>
     </div>
-    `;
-  const parser = new DOMParser();
-  const newCollection = parser.parseFromString(newCollectionHTML, "text/html").body.firstChild;
-  collectionSection.appendChild(newCollection);
+    `
+  const parser = new DOMParser()
+  const newList = parser.parseFromString(newListHTML, "text/html").body.firstChild
+  listSection.appendChild(newList)
 }

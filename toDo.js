@@ -8,7 +8,7 @@ class ToDo {
 }
 
 
-class Collection {
+class List {
     constructor(title, description = null) {
         this.title = title
         this.description = description
@@ -24,11 +24,11 @@ class Collection {
 }
 
 
-class DefaultCollection extends Collection { 
+class DefaultList extends List { 
     constructor() {
-        super('Have You?', 'This is your default collection')
+        super('Have You?', 'This is your default list')
     }
 }
 
 
-export { Collection, DefaultCollection }
+export { List, DefaultList }
