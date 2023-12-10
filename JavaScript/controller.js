@@ -23,6 +23,18 @@ const controller = {
     display() {
         for (let toDo of model.toDos)
             console.log(`${toDo.title}: ${toDo.membership}`)
+    },
+
+    getToDos() {
+        return model.toDos
+    },
+
+    getCurrentList() {
+        return model.currentList
+    },
+
+    getLists() {
+        return model.lists
     }
 }
 
