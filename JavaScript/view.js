@@ -17,7 +17,7 @@ const listView = {
     `
     const parser = new DOMParser()
     const newList = parser.parseFromString(currentListHTML, "text/html").body.firstChild
-    listSection.insertBefore(newList, toDOForm)
+    listSection.appendChild(newList)
   }
 }
 
