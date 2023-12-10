@@ -1,11 +1,15 @@
-
 const model = {
-    lists: [
-        {title: 'Have You?', description: 'This is your default collection'}
-    ],
-    toDos: [       
-    ],
+    lists: [],
+    toDos: [],
     currentList: ''
+}
+
+class List {
+    constructor (title, description = null) {
+        this.title = title
+        this.description = description
+        this.creationDate = new Date().toLocaleString()
+    }
 }
 
 class ToDo {
@@ -19,4 +23,4 @@ class ToDo {
 }
 
 
-export { model, ToDo }
+export { model, ToDo, List }
