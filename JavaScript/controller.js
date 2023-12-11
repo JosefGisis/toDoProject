@@ -21,6 +21,7 @@ const controller = {
         model.lists.push(defaultList)
         model.currentList = model.lists[0]
         listView.init()
+        toDoView.init()
     },
 
     getToDos() {

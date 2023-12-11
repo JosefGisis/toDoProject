@@ -4,10 +4,12 @@ const buttonView = {
 
 }
 
+
 const listView = {
   init() {
     const currentList = controller.getCurrentList()
     const listSection = document.getElementById("list-section")
+    const newToDoForm = document.getElementById("new-todo-form")
     const currentListHTML = `
     <div>
       <h3 class="w-fit rounded-lg | bg-sky-500 | text-4xl font-bold | p-3  mb-5">${ currentList.title }</h3>
@@ -17,36 +19,29 @@ const listView = {
     `
     const parser = new DOMParser()
     const newList = parser.parseFromString(currentListHTML, "text/html").body.firstChild
-    listSection.appendChild(newList)
+    listSection.insertBefore(newList, newToDoForm)
   }
 }
 
-const toDoView = {
 
+const toDoView = {
+  init() {
+    const toDos = controller.getToDos()
+    const listSection = document.getElementById("list-section")
+    for (let toDo of toDos) {
+      const toDoHTML = `
+      <div class="flex flex-row content-center items-center | rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 hover:pl-7">
+        <div>
+          <h3 class="rounded-lg | text-xl font-bold">${ toDo.title }</h3>
+          <p class=""><i>Created: ${ toDo.creationDate }</i></p>
+        </div>
+      </div>
+      `
+      const parser = new DOMParser()
+      const newToDo = parser.parseFromString(toDoHTML, "text/html").body.firstChild
+      listSection.appendChild(newToDo)
+    }
+  }
 }
 
 export { toDoView, listView, buttonView }
-
-// const lists = []
-// const defaultList = new DefaultList(
-  // "Have You?",
-  // "This is your default list"
-// )
-// const secondList = new List(
-  // "Shopping list",
-  // "this is my weekly shopping list"
-// )
-// lists.push(defaultList, secondList)
-// const listSection = document.getElementById("list-section")
-// 
-// let newListHTML = `
-// <div class="bg-slate-700 | p-6 m-5 | min-h-[30rem]">
-    // <h3 class="text-3xl font-semibold | mb-5">${defaultList.title}</h3>                 
-    // <h4 class="text-lg font-semibold my-2">${defaultList.description}<h4>
-    // <p><i>Created ${defaultList.creationDate}</i></p>
-    // <input class="my-3" type='text'>
-// </div>
-// `
-// const parser = new DOMParser()
-// const newList = parser.parseFromString(newListHTML, "text/html").body.firstChild
-// listSection.appendChild(newList)
