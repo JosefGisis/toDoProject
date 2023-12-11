@@ -1,14 +1,34 @@
 import { controller } from './controller.js'
 
-const buttonView = {
+const changeListFormView = {
+  init() {
+    const lists = controller.getLists()
+    const currentList = controller.getCurrentList()
+    const listChangeMenu = document.getElementById("list-change-menu")
+    
+    for (let list of lists) {
+      const option = document.createElement('option')
+      option.textContent = list.title
+      // currently displayed list shows up as an option but is not selectable  
+      if (list.title === currentList.title) {
+        option.selected = option.disabled = true
+      }  
+      listChangeMenu.appendChild(option)
+    }
+  },
 
+  toggleChangeForm() {
+    const changeListForm = document.getElementById("change-list-form")
+    if (changeListForm.classList.contains('hidden')) changeListForm.classList.replace('hidden', 'block')
+    else changeListForm.classList.replace('block', 'hidden')
+  }
 }
 
 
 const listView = {
   init() {
     const currentList = controller.getCurrentList()
-    const listSection = document.getElementById("list-section")
+    const toDoSection = document.getElementById("todo-section")
     const newToDoForm = document.getElementById("new-todo-form")
     const currentListHTML = `
     <div>
@@ -18,8 +38,8 @@ const listView = {
     </div>
     `
     const parser = new DOMParser()
-    const newList = parser.parseFromString(currentListHTML, "text/html").body.firstChild
-    listSection.insertBefore(newList, newToDoForm)
+    const currentListNode = parser.parseFromString(currentListHTML, "text/html").body.firstChild
+    toDoSection.insertBefore(currentListNode, newToDoForm)
   }
 }
 
@@ -27,7 +47,7 @@ const listView = {
 const toDoView = {
   init() {
     const toDos = controller.getToDos()
-    const listSection = document.getElementById("list-section")
+    const toDoSection = document.getElementById("todo-section")
     for (let toDo of toDos) {
       const toDoHTML = `
       <div class="flex flex-row content-center items-center justify-between | rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 hover:pl-7">
@@ -45,9 +65,41 @@ const toDoView = {
       `
       const parser = new DOMParser()
       const newToDo = parser.parseFromString(toDoHTML, "text/html").body.firstChild
-      listSection.appendChild(newToDo)
+      toDoSection.appendChild(newToDo)
     }
   }
 }
 
-export { toDoView, listView, buttonView }
+
+const newListFormView = {
+  clearFields() {
+    const newListTitle = document.getElementById("new-list-title")
+    const newListDescription = document.getElementById("new-list-description")
+    newListTitle.value = ""
+    newListDescription.value = ""
+  },
+  
+  checkTitleField() {
+    const newListTitle = document.getElementById("new-list-title")
+    const newListSubmit = document.getElementById("new-list-submit")
+    newListSubmit.style.backgroundColor = newListTitle.value ? "rgb(14 165 233)" : "rgb(7, 89, 133)"
+  },
+  
+  toggleListForm() {
+    const newListForm = document.getElementById("new-list-form")
+    if (newListForm.classList.contains('hidden')) newListForm.classList.replace('hidden', 'block')
+    else newListForm.classList.replace('block', 'hidden')
+    // if form is visible check if title has been entered 
+    if (newListForm.style.display === "block") this.checkTitleField()
+  },
+  
+  cancelList(e) {
+    const newListForm = document.getElementById("new-list-form")
+    e.preventDefault()
+    newListForm.classList.replace('block', 'hidden')
+    this.clearFields()
+  }, 
+}
+
+
+export { toDoView, listView, changeListFormView, newListFormView }

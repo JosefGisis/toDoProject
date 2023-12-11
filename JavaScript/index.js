@@ -1,21 +1,24 @@
 function clearFields() {
-  const listTitle = document.getElementById("list-title")
-  const listDescription = document.getElementById("list-description")
+  const newListTitle = document.getElementById("new-list-title")
+  const newListDescription = document.getElementById("new-list-description")
 
-  listTitle.value = ""
-  listDescription.value = ""
+  newListTitle.value = ""
+  newListDescription.value = ""
 }
 
 function checkTitleField() {
-  const listTitle = document.getElementById("list-title")
-  const createButton = document.getElementById("create-button")
+  const newListTitle = document.getElementById("new-list-title")
+  const newListSubmit = document.getElementById("new-list-submit")
 
-  createButton.style.backgroundColor = listTitle.value ? "rgb(14 165 233)" : "rgb(7, 89, 133)"
+  newListSubmit.style.backgroundColor = newListTitle.value ? "rgb(14 165 233)" : "rgb(7, 89, 133)"
 }
 
 function toggleListForm() {
   const newListForm = document.getElementById("new-list-form")
-  newListForm.style.display = newListForm.style.display === "none" ? "block" : "none"
+  if (newListForm.classList.contains('hidden')) newListForm.classList.replace('hidden', 'block')
+  else newListForm.classList.replace('block', 'hidden')
+  
+  // if form is visible check if title has been entered 
   if (newListForm.style.display === "block") checkTitleField()
 }
 
@@ -27,10 +30,10 @@ function cancelList(e) {
 }
 
 const newListButton = document.getElementById("new-list-button")
-const cancelButton = document.getElementById("cancel-button")
-const createButton = document.getElementById("create-button")
-const listTitle = document.getElementById("list-title")
+const newListCancel = document.getElementById("new-list-cancel")
+const newListSubmit = document.getElementById("new-list-submit")
+const newListTitle = document.getElementById("new-list-title")
 
 newListButton.addEventListener("click", toggleListForm)
-cancelButton.addEventListener("click", cancelList)
-listTitle.addEventListener("input", checkTitleField)
+newListCancel.addEventListener("click", cancelList)
+newListTitle.addEventListener("input", checkTitleField)
