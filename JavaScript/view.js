@@ -1,11 +1,14 @@
 import { controller } from './controller.js'
 
+// change list form view handler. Responsible for handling form view, content, and list changes. 
 const changeListFormView = {
   init() {
     const lists = controller.getLists()
     const currentList = controller.getCurrentList()
     const listChangeMenu = document.getElementById("list-change-menu")
-    
+    // clear change drop-down menu, so lists are not duplicated
+    listChangeMenu.innerHTML = ''
+
     for (let list of lists) {
       const option = document.createElement('option')
       option.textContent = list.title
@@ -21,7 +24,45 @@ const changeListFormView = {
     const changeListForm = document.getElementById("change-list-form")
     if (changeListForm.classList.contains('hidden')) changeListForm.classList.replace('hidden', 'block')
     else changeListForm.classList.replace('block', 'hidden')
+  },
+
+  cancelChange(e) {
+    const changeListForm = document.getElementById("change-list-form")
+    e.preventDefault()
+    changeListForm.classList.replace('block', 'hidden')
   }
+}
+
+
+// new list form view handler. Responsible for handling form view and new list submissions.
+const newListFormView = {
+  clearFields() {
+    const newListTitle = document.getElementById("new-list-title")
+    const newListDescription = document.getElementById("new-list-description")
+    newListTitle.value = ""
+    newListDescription.value = ""
+  },
+  
+  checkTitleField() {
+    const newListTitle = document.getElementById("new-list-title")
+    const newListSubmit = document.getElementById("new-list-submit")
+    newListSubmit.style.backgroundColor = newListTitle.value ? "rgb(14 165 233)" : "rgb(7, 89, 133)"
+  },
+  
+  toggleListForm() {
+    const newListForm = document.getElementById("new-list-form")
+    if (newListForm.classList.contains('hidden')) newListForm.classList.replace('hidden', 'block')
+    else newListForm.classList.replace('block', 'hidden')
+    // if form is visible check if title has been entered 
+    if (newListForm.style.display === "block") this.checkTitleField()
+  },
+  
+  cancelList(e) {
+    const newListForm = document.getElementById("new-list-form")
+    e.preventDefault()
+    newListForm.classList.replace('block', 'hidden')
+    this.clearFields()
+  }, 
 }
 
 
@@ -68,37 +109,6 @@ const toDoView = {
       toDoSection.appendChild(newToDo)
     }
   }
-}
-
-
-const newListFormView = {
-  clearFields() {
-    const newListTitle = document.getElementById("new-list-title")
-    const newListDescription = document.getElementById("new-list-description")
-    newListTitle.value = ""
-    newListDescription.value = ""
-  },
-  
-  checkTitleField() {
-    const newListTitle = document.getElementById("new-list-title")
-    const newListSubmit = document.getElementById("new-list-submit")
-    newListSubmit.style.backgroundColor = newListTitle.value ? "rgb(14 165 233)" : "rgb(7, 89, 133)"
-  },
-  
-  toggleListForm() {
-    const newListForm = document.getElementById("new-list-form")
-    if (newListForm.classList.contains('hidden')) newListForm.classList.replace('hidden', 'block')
-    else newListForm.classList.replace('block', 'hidden')
-    // if form is visible check if title has been entered 
-    if (newListForm.style.display === "block") this.checkTitleField()
-  },
-  
-  cancelList(e) {
-    const newListForm = document.getElementById("new-list-form")
-    e.preventDefault()
-    newListForm.classList.replace('block', 'hidden')
-    this.clearFields()
-  }, 
 }
 
 
