@@ -111,37 +111,42 @@ const toDoView = {
 	init() {
 		const toDos = controller.getToDos()
 		const toDoSection = document.getElementById('todo-section')
-    toDoSection.innerHTML = ''
+        toDoSection.innerHTML = ''
 		for (let toDo of toDos) {
 			const toDoHTML = `
-        <div class="flex flex-row content-center items-center justify-between | rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 hover:line-through hover:text-red-400">
-          <div>
-            <h3 class="rounded-lg | text-xl font-bold">${toDo.title}</h3>
-            <p class="text-sm"><i>Created: ${toDo.creationDate}</i></p>
-          </div>
-          
-          <div>
-            <p>Due: ${ toDo.dueDate }</p>
-          </div>
+				<div class="flex content-center items-center justify-between | rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 ${ toDo.completed ? 'line-through text-red-200' : '' }">
+					
+				    <div>
+						<h3 class="rounded-lg | text-xl font-bold">${toDo.title}</h3>
+						<p class="text-sm"><i>Created: ${toDo.creationDate}</i></p>
+					</div>
+					
+					<div>
+						<p>Due:${ toDo.dueDate }</p>
+					</div>
 
-          <div aria-label="complete todo button" class="border-2 rounded-md">
-            <div id="complete-todo-button" class="p-2 | rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
-              <div>
-                <img src="/images/checkbox.svg" width="20px" height="20px" alt="checkbox icon">
-              </div>
-              <div id="checkmark" class="absolute translate-y-[-22px] translate-x-[2px] | opacity-0 hover:opacity-100 | transition-all">
-                <img src="/images/checkmark.svg" width="20px" height="20px" alt="checkmark">
-              </div>
-            </div>  
-          </div>
+					<div class="border-2 rounded-md">
+						<div class="complete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
+						
+						    <div>
+								<img src="/images/checkbox.svg" width="20px" height="20px" alt="checkbox icon">
+							</div>
+						
+							<div class="absolute translate-y-[-22px] translate-x-[2px] | ${ toDo.completed ? 'opacity-100' : 'opacity-0' } | transition-all">
+								<img src="/images/checkmark.svg" width="20px" height="20px" alt="checkmark">
+							</div>
+						
+						</div>  
+					</div>
 
-          <div aria-label="delete todo button" class="border-2 rounded-md">
-            <div id="delete-todo-button" class="p-2 | rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
-              <img src="/images/delete-icon.svg" width="14px" height="20px" alt="icon for new list button">   
-            </div>      
-          </div>
-        </div>
-      `
+					<div class="border-2 rounded-md">
+						<div class="delete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
+							<img src="/images/delete-icon.svg" width="14px" height="20px" alt="icon for new list button">   
+						</div>      
+					</div>
+				
+				</div>
+			`
 			const parser = new DOMParser()
 			const newToDo = parser.parseFromString(toDoHTML, 'text/html').body.firstChild
 			toDoSection.appendChild(newToDo)

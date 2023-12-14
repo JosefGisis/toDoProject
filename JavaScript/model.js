@@ -6,21 +6,27 @@ const model = {
 
 
 class List {
+    static instanceCounter = 0
+
     constructor (title, description = null, creationDate) {
         this.title = title
         this.description = description
         this.creationDate = creationDate || new Date().toLocaleString()
+        this.id = List.instanceCounter++
     }
 }
 
 
 class ToDo {
+    static instanceCounter = 0
+
     constructor (title, membership, dueDate, creationDate) {
         this.title = title
         this.membership = membership
         this.dueDate = dueDate || 'NA'
         this.creationDate = creationDate || new Date().toLocaleString()
         this.completed = false
+        this.id = ToDo.instanceCounter++
     }
 }
 
@@ -68,7 +74,6 @@ const saveData = {
 
 	saveToDos() {
         // removing completed todos should have its own function
-        model.toDos = model.toDos.filter(todo => !todo.completed)
         localStorage.setItem('to-dos', JSON.stringify(model.toDos))
     },
 

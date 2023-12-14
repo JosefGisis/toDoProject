@@ -11,6 +11,7 @@ const controller = {
 		changeListFormController.init()
 		newListFormController.init()
 		newToDoFormController.init()
+		toDoController.index()
 	},
 
 	getToDos() {
@@ -76,9 +77,9 @@ const changeListFormController = {
 		const listChangeMenu = document.getElementById('list-change-menu')
 		e.preventDefault()
 		for (let list of model.lists) 
-            if (list.title === listChangeMenu.value) model.currentList = list
+		    if (list.title === listChangeMenu.value) model.currentList = list
+
 		changeListFormView.cancelChange(e)
-		// Clear and reset list change drop-down menu
 		changeListFormView.init()
 		currentListView.init()
 		toDoView.init()
@@ -107,6 +108,36 @@ const newToDoFormController = {
 		newToDoFormView.checkTitleField()
 		toDoView.init()
 		saveData.saveToDos()
+		toDoController.index()
+	}
+}
+
+const toDoController = {
+	index() {
+		const completeToDoIcons = document.querySelectorAll('.complete-todo-icon')
+		const deleteToDoIcons = document.querySelectorAll('.delete-todo-icon')	
+		completeToDoIcons.forEach((icon, index) => icon.addEventListener('click', () => {this.completeToDo(index)}))
+        deleteToDoIcons.forEach((icon, index) => icon.addEventListener('click', () => {this.deleteToDo(index)}))
+	},
+
+    completeToDo(index) {
+		const completedId = controller.getToDos()[index].id
+		for (let index in model.toDos) {
+	        if (model.toDos[index].id === completedId) 
+				model.toDos[index].completed = !model.toDos[index].completed ? true : false
+		}
+	    toDoView.init()
+		this.index()
+	},
+	
+	deleteToDo(index) {
+		const deletedId = controller.getToDos()[index].id
+		for (let index in model.toDos) {
+	        if (model.toDos[index].id === deletedId) model.toDos.splice(index, 1)
+		}
+	    toDoView.init()
+		saveData.saveToDos()
+		this.index()
 	}
 }
 
