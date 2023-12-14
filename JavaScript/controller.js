@@ -4,7 +4,6 @@ import { changeListFormView, currentListView, toDoView, newListFormView, newToDo
 // controller object initiates all objects and provides correspondence between model and view.
 const controller = {
 	init() {
-		console.log(model.currentList)
 		retrieveData.retrieveAll()
 	    currentListView.init()
 		toDoView.init()
@@ -14,16 +13,9 @@ const controller = {
 		newToDoFormController.init()
 	},
 
-	getLocalStorage() {
-		for (let i = 0; i < localStorage.length; i++) {
-			const key = localStorage.key(i)
-			const value = localStorage.getItem(key)
-			console.log(`${key}: ${value}`)
-		}
-	},
-
 	getToDos() {
-		return model.toDos
+		const toDos = model.toDos.filter(toDo => toDo.membership === model.currentList.title)
+		return toDos
 	},
 
 	getCurrentList() {
@@ -62,7 +54,6 @@ const newListFormController = {
 		newListDescription.value = ''
 		newListFormView.checkTitleField()
 		changeListFormView.init()
-		console.log(model.lists)
 		saveData.saveLists()
 	},
 }
@@ -90,6 +81,7 @@ const changeListFormController = {
 		// Clear and reset list change drop-down menu
 		changeListFormView.init()
 		currentListView.init()
+		toDoView.init()
 		saveData.saveCurrentList()
 	},
 }
@@ -104,12 +96,11 @@ const newToDoFormController = {
 	},
 
 	newToDo(e) {
-		const newToDoTitle = document.getElementById('new-todo-title').value
-		const newToDoMembership = model.currentList.title
-		const newToDoDueDate = document.getElementById('new-todo-due-date').value
+		const newToDoTitle = document.getElementById('new-todo-title').value || 'title error'
+		const newToDoDueDate = document.getElementById('new-todo-due-date').value || 'NA'
 		e.preventDefault()
 		
-		const newToDO = new ToDo(newToDoTitle, newToDoMembership, newToDoDueDate)
+		const newToDO = new ToDo(newToDoTitle, model.currentList.title, newToDoDueDate)
 		model.toDos.push(newToDO)
 		
 		newToDoFormView.clearFields()

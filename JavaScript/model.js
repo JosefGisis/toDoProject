@@ -4,21 +4,22 @@ const model = {
     currentList: ''
 }
 
+
 class List {
-    constructor (title, description = null) {
+    constructor (title, description = null, creationDate) {
         this.title = title
         this.description = description
-        this.creationDate = new Date().toLocaleString()
+        this.creationDate = creationDate || new Date().toLocaleString()
     }
 }
 
 
 class ToDo {
-    constructor (title, membership, dueDate = 'NA') {
+    constructor (title, membership, dueDate, creationDate) {
         this.title = title
-        this.dueDate = dueDate
         this.membership = membership
-        this.creationDate = new Date().toDateString()
+        this.dueDate = dueDate || 'NA'
+        this.creationDate = creationDate || new Date().toLocaleString()
         this.completed = false
     }
 }
@@ -27,29 +28,29 @@ class ToDo {
 const retrieveData = {
     retrieveLists() {
         const savedLists = JSON.parse(localStorage.getItem('lists'))
+        if (!savedLists) return
         for (let list of savedLists)
-            model.lists.push(new List(list.title, list.description))
+            model.lists.push(new List(list.title, list.description, list.creationDate))
     },
 
 	retrieveToDos() {
         const savedToDos = JSON.parse(localStorage.getItem('to-dos'))
+        if (!savedToDos) return
         for (let toDo of savedToDos)
-            model.toDos.push(new ToDo(toDo.title, toDo.dueDate))
+            model.toDos.push(new ToDo(toDo.title, toDo.membership, toDo.dueDate, toDo.creationDate))
     },
 
     retrieveCurrentList() {
-        const savedCurrentList = localStorage.getItem('current list').value
+        let savedCurrentList = localStorage.getItem('current list')
+        const savedLists = localStorage.getItem('lists')
+
         if (!savedCurrentList) {
-            const newDefaultList = new List('Have You?', 'This is your default list')
-            model.lists.unshift(newDefaultList)
-            model.currentList = model.lists[0]
-            saveData.saveAll()
-        } else {
-            for (let list of model.lists) {
-                if (savedCurrentList === list) model.currentList = list
-            }
-        }
-        console.log(model.currentList)
+            model.lists.unshift(new List('Have You?', 'This is your default list'))
+            savedCurrentList = 'Have You?'
+        } 
+        
+        for (let list of model.lists)
+            if (savedCurrentList === list.title) model.currentList = list
     },
 
     retrieveAll() {
@@ -66,6 +67,8 @@ const saveData = {
     },
 
 	saveToDos() {
+        // removing completed todos should have its own function
+        model.toDos = model.toDos.filter(todo => !todo.completed)
         localStorage.setItem('to-dos', JSON.stringify(model.toDos))
     },
 
@@ -79,5 +82,6 @@ const saveData = {
         this.saveCurrentList()
     }
 } 
+
 
 export { model, ToDo, List, retrieveData, saveData }

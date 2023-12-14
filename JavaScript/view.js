@@ -49,14 +49,13 @@ const newListFormView = {
 		const newListTitle = document.getElementById('new-list-title')
 		const newListSubmit = document.getElementById('new-list-submit')
 		newListSubmit.style.backgroundColor = newListTitle.value ? 'rgb(14 165 233)' : 'rgb(7, 89, 133)'
-    newListSubmit.disabled = newListTitle.value ? false : true
+        newListSubmit.disabled = newListTitle.value ? false : true
 	},
 
 	toggleListForm() {
 		const newListForm = document.getElementById('new-list-form')
 		if (newListForm.classList.contains('hidden')) newListForm.classList.replace('hidden', 'block')
 		else newListForm.classList.replace('block', 'hidden')
-    console.log(newListForm.classList)
 		// if form is visible check if title has been entered
 		if (newListForm.classList.contains('block')) this.checkTitleField()
 	},
@@ -115,29 +114,29 @@ const toDoView = {
     toDoSection.innerHTML = ''
 		for (let toDo of toDos) {
 			const toDoHTML = `
-        <div class="flex flex-row content-center items-center justify-between | rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600">
+        <div class="flex flex-row content-center items-center justify-between | rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 hover:line-through hover:text-red-400">
           <div>
             <h3 class="rounded-lg | text-xl font-bold">${toDo.title}</h3>
             <p class="text-sm"><i>Created: ${toDo.creationDate}</i></p>
           </div>
           
           <div>
-            <p>Due: ${toDo.dueDate ? 'toDo.dueDate' : 'NA' }</p>
+            <p>Due: ${ toDo.dueDate }</p>
           </div>
 
           <div aria-label="complete todo button" class="border-2 rounded-md">
-            <div id="complete-todo-button" class="p-2 | rounded-md | bg-slate-700 hover:bg-slate-500 | transition-all">
+            <div id="complete-todo-button" class="p-2 | rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
               <div>
                 <img src="/images/checkbox.svg" width="20px" height="20px" alt="checkbox icon">
               </div>
-              <div id="checkmark" class="absolute translate-y-[-22px] translate-x-[2px] | opacity-0 | transition-all">
+              <div id="checkmark" class="absolute translate-y-[-22px] translate-x-[2px] | opacity-0 hover:opacity-100 | transition-all">
                 <img src="/images/checkmark.svg" width="20px" height="20px" alt="checkmark">
               </div>
             </div>  
           </div>
 
           <div aria-label="delete todo button" class="border-2 rounded-md">
-            <div id="delete-todo-button" class="p-2 | rounded-md | bg-slate-700 hover:bg-slate-500 | transition-all">
+            <div id="delete-todo-button" class="p-2 | rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
               <img src="/images/delete-icon.svg" width="14px" height="20px" alt="icon for new list button">   
             </div>      
           </div>
