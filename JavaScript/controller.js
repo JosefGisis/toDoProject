@@ -1,27 +1,25 @@
-import { model, ToDo, List } from './model.js'
-import { changeListFormView, listView, toDoView, newListFormView } from './view.js'
-
-// retrieveData and saveData objects may be placed in model file
-const retrieveData = {
-	retrieveLists() {},
-	retrieveToDos() {},
-}
-
-const saveData = {
-	saveLists() {},
-	saveToDos() {},
-}
+import { model, ToDo, List, retrieveData, saveData } from './model.js'
+import { changeListFormView, currentListView, toDoView, newListFormView, newToDoFormView } from './view.js'
 
 // controller object initiates all objects and provides correspondence between model and view.
 const controller = {
 	init() {
-		if (model.lists[0]) model.currentList = model.lists[0]
-
-		listView.init()
-		// toDoView.init()
+		console.log(model.currentList)
+		retrieveData.retrieveAll()
+	    currentListView.init()
+		toDoView.init()
 		changeListFormView.init()
 		changeListFormController.init()
 		newListFormController.init()
+		newToDoFormController.init()
+	},
+
+	getLocalStorage() {
+		for (let i = 0; i < localStorage.length; i++) {
+			const key = localStorage.key(i)
+			const value = localStorage.getItem(key)
+			console.log(`${key}: ${value}`)
+		}
 	},
 
 	getToDos() {
@@ -62,8 +60,10 @@ const newListFormController = {
 		// Fields need to be cleared to prevent submission spamming
 		newListTitle.value = ''
 		newListDescription.value = ''
+		newListFormView.checkTitleField()
 		changeListFormView.init()
 		console.log(model.lists)
+		saveData.saveLists()
 	},
 }
 
@@ -89,9 +89,37 @@ const changeListFormController = {
 		changeListFormView.cancelChange(e)
 		// Clear and reset list change drop-down menu
 		changeListFormView.init()
+		currentListView.init()
+		saveData.saveCurrentList()
 	},
 }
 
+const newToDoFormController = {
+	newToDoTitle: document.getElementById('new-todo-title'),
+	newToDoSubmit: document.getElementById('new-todo-submit'),
+
+	init() {
+		this.newToDoSubmit.addEventListener('click', this.newToDo)
+		this.newToDoTitle.addEventListener('input', newToDoFormView.checkTitleField)
+	},
+
+	newToDo(e) {
+		const newToDoTitle = document.getElementById('new-todo-title').value
+		const newToDoMembership = model.currentList.title
+		const newToDoDueDate = document.getElementById('new-todo-due-date').value
+		e.preventDefault()
+		
+		const newToDO = new ToDo(newToDoTitle, newToDoMembership, newToDoDueDate)
+		model.toDos.push(newToDO)
+		
+		newToDoFormView.clearFields()
+		newToDoFormView.checkTitleField()
+		toDoView.init()
+		saveData.saveToDos()
+	}
+}
+
+
 controller.init()
 
-export { saveData, retrieveData, controller }
+export { controller }
