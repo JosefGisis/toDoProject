@@ -38,13 +38,18 @@ const retrieveData = {
     },
 
     retrieveCurrentList() {
-        const savedCurrentList = localStorage.getItem('current list')
+        const savedCurrentList = localStorage.getItem('current list').value
         if (!savedCurrentList) {
             const newDefaultList = new List('Have You?', 'This is your default list')
             model.lists.unshift(newDefaultList)
-            model.currentList = model.lists[0].title
-            saveData.saveCurrentList()
-        } else model.currentList = savedCurrentList.value
+            model.currentList = model.lists[0]
+            saveData.saveAll()
+        } else {
+            for (let list of model.lists) {
+                if (savedCurrentList === list) model.currentList = list
+            }
+        }
+        console.log(model.currentList)
     },
 
     retrieveAll() {
@@ -65,7 +70,7 @@ const saveData = {
     },
 
     saveCurrentList() {
-        localStorage.setItem('current list', model.currentList)
+        localStorage.setItem('current list', model.currentList.title)
     },
 
     saveAll() {
