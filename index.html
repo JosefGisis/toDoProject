@@ -31,7 +31,7 @@
                 <div class="flex flex-row content-center items-center justify-center">
 
                     <!-- Button to change the current list -->
-                    <div aria-label="change todo list button" class="pt-5 mx-4 | flex flex-col content-center items-center">
+                    <div class="pt-5 mx-4 | flex flex-col content-center items-center">
                         <!-- Button -->
                         <div id="change-list-button" class="peer | w-fit | p-4 rounded-lg | bg-slate-700 hover:bg-slate-600 | transition-all">
                             <img src="/images/list-selection-icon-alternative.svg" width="40px" height="40px" alt="icon for list change button">         
@@ -43,7 +43,7 @@
                     </div>
 
                     <!-- Button to add new todo lists -->
-                    <div aria-label="new todo list button" class="pt-5 mx-4 | flex flex-col content-center items-center">
+                    <div class="pt-5 mx-4 | flex flex-col content-center items-center">
                         <!-- Button -->
                         <div id="new-list-button" class="peer | w-fit | p-4 rounded-lg | bg-slate-700 hover:bg-slate-600 | transition-all">
                             <img src="/images/new_list.svg" width="40px" height="40px" alt="icon for new list button">         
@@ -51,6 +51,18 @@
                         <!-- Subtitle -->
                         <div class="opacity-20 peer-hover:opacity-40 | transition-all | pt-2">
                             <p>Add List</p>
+                        </div>
+                    </div>
+
+                    <!-- Button to delete todo lists -->
+                    <div class="pt-5 mx-4 | flex flex-col content-center items-center">
+                        <!-- Button -->
+                        <div id="delete-list-button" class="peer | w-fit | p-4 rounded-lg | bg-slate-700 hover:bg-slate-600 | transition-all">
+                            <img src="/images/delete_list.svg" width="40px" height="40px" alt="icon for deleting list button">         
+                        </div>
+                        <!-- Subtitle -->
+                        <div class="opacity-20 peer-hover:opacity-40 | transition-all | pt-2">
+                            <p>Delete List</p>
                         </div>
                     </div>
     
@@ -103,6 +115,21 @@
                         </div>
                     
                     </form>
+                
+                </div>
+
+
+                <!-- Toggled form to delete current list -->
+                <div id="delete-list-form" class="bg-slate-700 | p-6 m-5 | hidden">
+
+                    <h2 class="text-3xl text-center text-rose-400 | mb-5">CAUTION!</h2>
+    
+                    <h3 class="text-lg text-center | mb-6">This action is irreversible. Deleting this list will permanently remove all its contents. Proceed?</h3>
+                            
+                    <div class="flex content-center items-center justify-center | my-2">
+                        <button id="delete-list-cancel" class="bg-sky-500 | w-20 py-2 px-3 mx-2 | rounded-md focus:outline-sky-500" type="cancel">NO</button>
+                        <button id="delete-list-submit" class="bg-sky-800 hover:bg-sky-500 | w-20 py-2 px-3 mx-2 | rounded-md focus:outline-sky-500 | transition-all" type="submit">YES!</button>
+                    </div>
                 
                 </div>
 

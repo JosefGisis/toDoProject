@@ -69,6 +69,21 @@ const newListFormView = {
 }
 
 
+const deleteListFormView = {
+	toggleForm() {
+		console.log('active')
+		const deleteListForm = document.getElementById('delete-list-form')
+		if (deleteListForm.classList.contains('hidden')) deleteListForm.classList.replace('hidden', 'block')
+		else deleteListForm.classList.replace('block', 'hidden')
+	},
+
+	cancel() {
+		const deleteListForm = document.getElementById('delete-list-form')
+		deleteListForm.classList.replace('block', 'hidden')
+	}
+} 
+
+
 /********************************************************* 
  * New todo form view handles forms appearance and fields. 
 *********************************************************/
@@ -114,7 +129,7 @@ const toDoView = {
         toDoSection.innerHTML = ''
 		for (let toDo of toDos) {
 			const toDoHTML = `
-				<div class="flex content-center items-center justify-between | rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 ${ toDo.completed ? 'line-through text-red-200' : '' }">
+				<div class="flex content-center items-center justify-between | rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 ${ toDo.completed ? 'line-through text-rose-400' : '' }">
 					
 				    <div>
 						<h3 class="rounded-lg | text-xl font-bold">${toDo.title}</h3>
@@ -154,4 +169,4 @@ const toDoView = {
 	},
 }
 
-export { toDoView, currentListView, changeListFormView, newListFormView, newToDoFormView }
+export { toDoView, currentListView, changeListFormView, newListFormView, newToDoFormView, deleteListFormView }

@@ -1,5 +1,5 @@
 import { model, ToDo, List, retrieveData, saveData } from './model.js'
-import { changeListFormView, currentListView, toDoView, newListFormView, newToDoFormView } from './view.js'
+import { changeListFormView, currentListView, toDoView, newListFormView, newToDoFormView, deleteListFormView } from './view.js'
 
 // controller object initiates all objects and provides correspondence between model and view.
 const controller = {
@@ -12,6 +12,7 @@ const controller = {
 		newListFormController.init()
 		newToDoFormController.init()
 		toDoController.index()
+		deleteListFormController.init()
 	},
 
 	getToDos() {
@@ -27,6 +28,7 @@ const controller = {
 		return model.lists
 	},
 }
+
 
 // controls new list form (submission, cancellation, and list instantiation)
 const newListFormController = {
@@ -109,6 +111,27 @@ const newToDoFormController = {
 		toDoView.init()
 		saveData.saveToDos()
 		toDoController.index()
+	}
+}
+
+const deleteListFormController = {
+	deleteListButton: document.getElementById('delete-list-button'),
+	deleteListForm: document.getElementById('change-list-form'),
+	deleteListCancel: document.getElementById('delete-list-cancel'), 
+	deleteListSubmit: document.getElementById('delete-list-submit'),
+
+	init() {
+		this.deleteListButton.addEventListener('click', deleteListFormView.toggleForm)
+		this.deleteListCancel.addEventListener('click', deleteListFormView.cancel)
+		this.deleteListSubmit.addEventListener('click', this.deleteList)
+	},
+
+	deleteList() {
+		model.lists = model.lists.filter(list => list.title !== model.currentList.title)
+		model.toDos = model.toDos.filter(toDo => toDo.membership !== model.currentList.title)
+		model.currentList = model.lists[0]
+		deleteListFormView.cancel()
+		currentListView.init()
 	}
 }
 

@@ -18,7 +18,7 @@
 
 .responsive-container {
     width: 100%;
-    padding: 0.625rem;
+    padding: 0.225rem;
     border: 2px;
     /* Slate 400 from tailwind color template */
     border-color: hex(#94a3b8); 
@@ -29,7 +29,7 @@
 @media (min-width: 640px) {
     .responsive-container {
         width: 100%;
-        padding: 0.625rem;
+        padding: 0.325rem;
     }
 }
 
