@@ -13,7 +13,8 @@ class List {
         this.title = title
         this.description = description
         this.creationDate = creationDate || new Date().toLocaleString()
-        this.id = List.instanceCounter++
+        List.instanceCounter++
+        this.id = List.instanceCounter
     }
 }
 
@@ -69,7 +70,6 @@ const saveData = {
     },
 
 	saveToDos() {
-        // removing completed todos should have its own function
         localStorage.setItem('to-dos', JSON.stringify(model.toDos))
     },
 
