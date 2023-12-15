@@ -32,35 +32,35 @@
 
                     <!-- Button to change the current list -->
                     <div class="pt-5 mx-4 | flex flex-col content-center items-center">
-                        <!-- Button -->
+        
                         <div id="change-list-button" class="peer | w-fit | p-4 rounded-lg | bg-slate-700 hover:bg-slate-600 | transition-all">
                             <img src="/images/list-selection-icon-alternative.svg" width="40px" height="40px" alt="icon for list change button">         
                         </div>
-                        <!-- Subtitle -->
+        
                         <div class="opacity-20 peer-hover:opacity-40 | transition-all | pt-2">
                             <p>Change List</p>
                         </div>
                     </div>
-
+                    
                     <!-- Button to add new todo lists -->
                     <div class="pt-5 mx-4 | flex flex-col content-center items-center">
-                        <!-- Button -->
+                   
                         <div id="new-list-button" class="peer | w-fit | p-4 rounded-lg | bg-slate-700 hover:bg-slate-600 | transition-all">
                             <img src="/images/new_list.svg" width="40px" height="40px" alt="icon for new list button">         
                         </div>
-                        <!-- Subtitle -->
+                      
                         <div class="opacity-20 peer-hover:opacity-40 | transition-all | pt-2">
-                            <p>Add List</p>
+                            <p>New List</p>
                         </div>
                     </div>
 
                     <!-- Button to delete todo lists -->
                     <div class="pt-5 mx-4 | flex flex-col content-center items-center">
-                        <!-- Button -->
+
                         <div id="delete-list-button" class="peer | w-fit | p-4 rounded-lg | bg-slate-700 hover:bg-slate-600 | transition-all">
                             <img src="/images/delete_list.svg" width="40px" height="40px" alt="icon for deleting list button">         
                         </div>
-                        <!-- Subtitle -->
+
                         <div class="opacity-20 peer-hover:opacity-40 | transition-all | pt-2">
                             <p>Delete List</p>
                         </div>
@@ -68,59 +68,52 @@
     
                 </div>
 
-
+   
+                <!-- This section contains responsive forms to change, add, and delete lists -->
+               
                 <!-- Toggled form to change current list -->
-                <div id="change-list-form" class="bg-slate-700 | p-6 m-5 | hidden">
+                <div id="change-list" class="bg-slate-700 | p-6 m-5 | hidden">
     
-                    <h3 class="text-2xl | mb-5">Change ToDo List</h3>
-                    
-                    <form>
+                    <h3 class="text-2xl | mb-5">Change ToDo List</h3>  
                         
-                        <div class="text-black | p-1">
-                            <select id="list-change-menu">
-                            </select>
-                        </div>
-                        
-                        <div class="my-2">
-                            <button id="change-list-cancel" class="bg-sky-500 | py-2 px-3 mr-1 mt-5 | rounded-md focus:outline-sky-500" type="cancel">cancel</button>
-                            <button id="change-list-submit" class="bg-sky-800 | py-2 px-3 ml-1 mt-5 | rounded-md focus:outline-sky-500" type="submit">submit</button>
-                        </div>
+                    <div class="text-black | p-1">
+                        <select id="list-change-menu">
+                        </select>
+                    </div>
                     
-                    </form>
+                    <div class="my-2">
+                        <button id="change-list-cancel" class="bg-sky-500 | py-2 px-3 mr-1 mt-5 | rounded-md focus:outline-sky-500" type="cancel">cancel</button>
+                        <button id="change-list-submit" class="bg-sky-800 | py-2 px-3 ml-1 mt-5 | rounded-md focus:outline-sky-500" type="submit">submit</button>
+                    </div>
                 
                 </div>
 
-
                
                 <!-- Toggled form to create new lists -->
-                <div id="new-list-form" class="bg-slate-700 | p-6 m-5 | hidden">
+                <div id="new-list" class="bg-slate-700 | p-6 m-5 | hidden">
                     
                     <h3 class="text-2xl | mb-5">Enter New List Information</h3>
+                        
+                    <div class="my-2">
+                        <p class="my-2">List Title:</p>
+                        <input class="text-black | p-1 | rounded-md focus:outline-sky-500" type="text" id="new-list-title" required>     
+                    </div>
                     
-                    <form>
-                        
-                        <div class="my-2">
-                            <p class="my-2">List Title:</p>
-                            <input class="text-black | p-1 | rounded-md focus:outline-sky-500" type="text" id="new-list-title" required>     
-                        </div>
-                        
-                        <div class="my-2">
-                            <p class="my-2">List Description:</p>
-                            <textarea class="text-black | p-1 | rounded-md focus:outline-sky-500" id="new-list-description" cols="25" rows="3" placeholder="optional: provide a brief list description"></textarea>
-                        </div>
-                        
-                        <div class="my-2">
-                            <button id="new-list-cancel" class="bg-sky-500 | py-2 px-3 mr-1 mt-5 | rounded-md focus:outline-sky-500" type="cancel">cancel</button>
-                            <button id="new-list-submit" class="bg-sky-800 | py-2 px-3 ml-1 mt-5 | rounded-md focus:outline-sky-500" type="submit">submit</button>
-                        </div>
+                    <div class="my-2">
+                        <p class="my-2">List Description:</p>
+                        <textarea class="text-black | p-1 | rounded-md focus:outline-sky-500" id="new-list-description" cols="25" rows="3" placeholder="optional: provide a brief list description"></textarea>
+                    </div>
                     
-                    </form>
-                
+                    <div class="my-2">
+                        <button id="new-list-cancel" class="bg-sky-500 | py-2 px-3 mr-1 mt-5 | rounded-md focus:outline-sky-500" type="cancel">cancel</button>
+                        <button id="new-list-submit" class="bg-sky-800 | py-2 px-3 ml-1 mt-5 | rounded-md focus:outline-sky-500" type="submit">submit</button>
+                    </div>
+            
                 </div>
 
 
                 <!-- Toggled form to delete current list -->
-                <div id="delete-list-form" class="bg-slate-700 | p-6 m-5 | hidden">
+                <div id="delete-list" class="bg-slate-700 | p-6 m-5 | hidden">
 
                     <h2 class="text-3xl text-center text-rose-400 | mb-5">CAUTION!</h2>
     
@@ -134,6 +127,8 @@
                 </div>
 
                
+                <!-- This section displays current list, new to-do form and to-dos -->
+
                 <!-- Line before todos -->
                 <div class="my-7 mx-5">
                     <hr class="border-2 border-dashed border-sky-800">
@@ -177,7 +172,7 @@
             </div>
         </footer>
 
-        <!-- <script type="module" src="./JavaScript/index.js"></script> -->
+
         <script type="module" src="./JavaScript/controller.js"></script>
   
     </body>

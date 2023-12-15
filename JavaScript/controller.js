@@ -1,13 +1,13 @@
 import { model, ToDo, List, retrieveData, saveData } from './model.js'
-import { changeListFormView, currentListView, toDoView, newListFormView, newToDoFormView, deleteListFormView } from './view.js'
+import { changeListView, listView, toDoView, newListView, newToDoView, deleteListView, view } from './view.js'
 
 // controller object initiates all objects and provides correspondence between model and view.
 const controller = {
 	init() {
 		retrieveData.retrieveAll()
-	    currentListView.init()
-		toDoView.init()
-		changeListFormView.init()
+	    listView.display()
+		toDoView.display()
+		changeListView.displayLists()
 		changeListFormController.init()
 		newListFormController.init()
 		newToDoFormController.init()
@@ -38,16 +38,13 @@ const newListFormController = {
 	newListTitle: document.getElementById('new-list-title'),
 
 	init() {
-		this.newListButton.addEventListener('click', newListFormView.toggleListForm.bind(newListFormView))
-		// cancelChange requires a new event listener because multiple functions cannot be invoked on the same line as they require binding to an external object.
-		this.newListButton.addEventListener('click', changeListFormView.cancelChange)
-		this.newListCancel.addEventListener('click', newListFormView.cancelList.bind(newListFormView))
-		this.newListTitle.addEventListener('input', newListFormView.checkTitleField.bind(newListFormView))
+		this.newListButton.addEventListener('click', view.toggleNewList)
+		this.newListCancel.addEventListener('click', newListView.cancel.bind(newListView))
+		this.newListTitle.addEventListener('input', newListView.checkTitleField.bind(newListView))
 		this.newListSubmit.addEventListener('click', this.newList)
 	},
 
-	newList(e) {
-		e.preventDefault()
+	newList() {
 		let newListTitle = document.getElementById('new-list-title')
 		let newListDescription = document.getElementById('new-list-description')
 		const newList = new List(newListTitle.value, newListDescription.value)
@@ -55,8 +52,8 @@ const newListFormController = {
 		// Fields need to be cleared to prevent submission spamming
 		newListTitle.value = ''
 		newListDescription.value = ''
-		newListFormView.checkTitleField()
-		changeListFormView.init()
+		newListView.checkTitleField()
+		changeListView.displayLists()
 		saveData.saveLists()
 	},
 }
@@ -68,23 +65,20 @@ const changeListFormController = {
 	changeListSubmit: document.getElementById('change-list-submit'),
 
 	init() {
-		this.changeListButton.addEventListener('click', changeListFormView.toggleChangeForm)
-		// cancelList requires a new event listener because multiple functions cannot be invoked on the same line as they require binding to an external object.
-		this.changeListButton.addEventListener('click', newListFormView.cancelList.bind(newListFormView))
-		this.changeListCancel.addEventListener('click', changeListFormView.cancelChange)
+		this.changeListButton.addEventListener('click', view.toggleChangeList)
+		this.changeListCancel.addEventListener('click', changeListView.cancel)
 		this.changeListSubmit.addEventListener('click', this.changeList)
 	},
 
-	changeList(e) {
+	changeList() {
 		const listChangeMenu = document.getElementById('list-change-menu')
-		e.preventDefault()
 		for (let list of model.lists) 
 		    if (list.title === listChangeMenu.value) model.currentList = list
 
-		changeListFormView.cancelChange(e)
-		changeListFormView.init()
-		currentListView.init()
-		toDoView.init()
+		changeListView.cancel()
+		changeListView.displayLists()
+		listView.display()
+		toDoView.display()
 		saveData.saveCurrentList()
 	},
 }
@@ -95,20 +89,19 @@ const newToDoFormController = {
 
 	init() {
 		this.newToDoSubmit.addEventListener('click', this.newToDo)
-		this.newToDoTitle.addEventListener('input', newToDoFormView.checkTitleField)
+		this.newToDoTitle.addEventListener('input', newToDoView.checkTitleField)
 	},
 
-	newToDo(e) {
+	newToDo() {
 		const newToDoTitle = document.getElementById('new-todo-title').value || 'title error'
 		const newToDoDueDate = document.getElementById('new-todo-due-date').value || 'NA'
-		e.preventDefault()
 		
 		const newToDO = new ToDo(newToDoTitle, model.currentList.title, newToDoDueDate)
 		model.toDos.push(newToDO)
 		
-		newToDoFormView.clearFields()
-		newToDoFormView.checkTitleField()
-		toDoView.init()
+		newToDoView.clearFields()
+		newToDoView.checkTitleField()
+		toDoView.display()
 		saveData.saveToDos()
 		toDoController.index()
 	}
@@ -121,8 +114,8 @@ const deleteListFormController = {
 	deleteListSubmit: document.getElementById('delete-list-submit'),
 
 	init() {
-		this.deleteListButton.addEventListener('click', deleteListFormView.toggleForm)
-		this.deleteListCancel.addEventListener('click', deleteListFormView.cancel)
+		this.deleteListButton.addEventListener('click', view.toggleDeleteList)
+		this.deleteListCancel.addEventListener('click', deleteListView.cancel)
 		this.deleteListSubmit.addEventListener('click', this.deleteList)
 	},
 
@@ -130,8 +123,8 @@ const deleteListFormController = {
 		model.lists = model.lists.filter(list => list.title !== model.currentList.title)
 		model.toDos = model.toDos.filter(toDo => toDo.membership !== model.currentList.title)
 		model.currentList = model.lists[0]
-		deleteListFormView.cancel()
-		currentListView.init()
+		deleteListView.cancel()
+		listView.display()
 	}
 }
 
@@ -149,7 +142,7 @@ const toDoController = {
 	        if (model.toDos[index].id === completedId) 
 				model.toDos[index].completed = !model.toDos[index].completed ? true : false
 		}
-	    toDoView.init()
+	    toDoView.display()
 		this.index()
 	},
 	
@@ -158,7 +151,7 @@ const toDoController = {
 		for (let index in model.toDos) {
 	        if (model.toDos[index].id === deletedId) model.toDos.splice(index, 1)
 		}
-	    toDoView.init()
+	    toDoView.display()
 		saveData.saveToDos()
 		this.index()
 	}
