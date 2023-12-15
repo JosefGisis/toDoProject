@@ -17,6 +17,11 @@ const view = {
 		changeListView.cancel()
 		newListView.cancel() 
 		deleteListView.toggleForm()
+	},
+
+	updateContent() {
+		listView.display()
+		toDoView.display()
 	}
 }
 
@@ -97,18 +102,19 @@ const deleteListView = {
 
 // New todo form view handles forms appearance and fields. 
 const newToDoView = {
-  clearFields() {
-    const newToDoTitle = document.getElementById('new-todo-title')
-    const newToDoDueDate = document.getElementById('new-todo-due-date')
-    newToDoTitle.value = newToDoDueDate.value = ''
-  },
+	clearFields() {
+		const newToDoTitle = document.getElementById('new-todo-title')
+		const newToDoDueDate = document.getElementById('new-todo-due-date')
+		newToDoTitle.value = newToDoDueDate.value = ''
+		this.checkTitleField()
+	},
 
-  checkTitleField() {
-    const newToDoTitle = document.getElementById('new-todo-title')
-    const newToDoSubmit = document.getElementById('new-todo-submit')
-    newToDoSubmit.style.backgroundColor = newToDoTitle.value ? 'rgb(14 165 233)' : 'rgb(7, 89, 133)'
-    newToDoSubmit.disabled = newToDoTitle.value ? false : true
-  }
+	checkTitleField() {
+		const newToDoTitle = document.getElementById('new-todo-title')
+		const newToDoSubmit = document.getElementById('new-todo-submit')
+		newToDoSubmit.style.backgroundColor = newToDoTitle.value ? 'rgb(14 165 233)' : 'rgb(7, 89, 133)'
+		newToDoSubmit.disabled = newToDoTitle.value ? false : true
+	}
 }
 
 // Current list element handler. Responsible for displaying current list.

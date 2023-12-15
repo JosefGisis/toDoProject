@@ -6,6 +6,7 @@ const model = {
 
 
 class List {
+    // instanceCounter provides unique key for each object instance
     static instanceCounter = 0
 
     constructor (title, description = null, creationDate) {
@@ -24,7 +25,7 @@ class ToDo {
         this.title = title
         this.membership = membership
         this.dueDate = dueDate || 'NA'
-        this.creationDate = creationDate || new Date().toLocaleString()
+        this.creationDate = creationDate || new Date().toDateString()
         this.completed = false
         this.id = ToDo.instanceCounter++
     }
@@ -35,28 +36,23 @@ const retrieveData = {
     retrieveLists() {
         const savedLists = JSON.parse(localStorage.getItem('lists'))
         if (!savedLists) return
-        for (let list of savedLists)
-            model.lists.push(new List(list.title, list.description, list.creationDate))
+        model.lists = savedLists.map(list => new List(list.title, list.description, list.creationDate))
     },
 
 	retrieveToDos() {
         const savedToDos = JSON.parse(localStorage.getItem('to-dos'))
         if (!savedToDos) return
-        for (let toDo of savedToDos)
-            model.toDos.push(new ToDo(toDo.title, toDo.membership, toDo.dueDate, toDo.creationDate))
+        model.toDos = savedToDos.map(toDo => new ToDo(toDo.title, toDo.membership, toDo.dueDate, toDo.creationDate))
     },
 
     retrieveCurrentList() {
         let savedCurrentList = localStorage.getItem('current list')
-        const savedLists = localStorage.getItem('lists')
-
+        // Following segment does not follow single responsibility
         if (!savedCurrentList) {
             model.lists.unshift(new List('Have You?', 'This is your default list'))
             savedCurrentList = 'Have You?'
         } 
-        
-        for (let list of model.lists)
-            if (savedCurrentList === list.title) model.currentList = list
+        model.currentList = model.lists.find(list => list.title === savedCurrentList)
     },
 
     retrieveAll() {
@@ -87,6 +83,5 @@ const saveData = {
         this.saveCurrentList()
     }
 } 
-
 
 export { model, ToDo, List, retrieveData, saveData }
