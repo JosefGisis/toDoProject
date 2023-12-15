@@ -13,8 +13,8 @@ class List {
         this.title = title
         this.description = description
         this.creationDate = creationDate || new Date().toLocaleString()
-        List.instanceCounter++
         this.id = List.instanceCounter
+        List.instanceCounter++
     }
 }
 
@@ -28,7 +28,8 @@ class ToDo {
         this.dueDate = dueDate || 'NA'
         this.creationDate = creationDate || new Date().toDateString()
         this.completed = false
-        this.id = ToDo.instanceCounter++
+        this.id = ToDo.instanceCounter
+        ToDo.instanceCounter++
     }
 }
 
