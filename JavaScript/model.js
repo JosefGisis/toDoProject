@@ -13,7 +13,8 @@ class List {
         this.title = title
         this.description = description
         this.creationDate = creationDate || new Date().toLocaleString()
-        this.id = List.instanceCounter++
+        this.id = List.instanceCounter
+        List.instanceCounter++
     }
 }
 
@@ -27,7 +28,8 @@ class ToDo {
         this.dueDate = dueDate || 'NA'
         this.creationDate = creationDate || new Date().toDateString()
         this.completed = false
-        this.id = ToDo.instanceCounter++
+        this.id = ToDo.instanceCounter
+        ToDo.instanceCounter++
     }
 }
 
@@ -52,6 +54,11 @@ const lists = {
     saveLists() {
         localStorage.setItem('lists', JSON.stringify(model.lists))
     },
+
+	saveToDos() {
+        localStorage.setItem('to-dos', JSON.stringify(model.toDos))
+    },
+
     saveCurrentList() {
         localStorage.setItem('current list', model.currentList.title)
     },

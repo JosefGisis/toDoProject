@@ -75,7 +75,7 @@ const newListView = {
 		const newList = document.getElementById('new-list')
 		if (newList.classList.contains('hidden')) {
 			newList.classList.replace('hidden', 'block')
-		    this.checkTitleField()
+			this.checkTitleField()
         } else newList.classList.replace('block', 'hidden')
 	},
 
