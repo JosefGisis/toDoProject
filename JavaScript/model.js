@@ -44,7 +44,7 @@ const lists = {
     retrieveCurrentList() {
         let savedCurrentList = localStorage.getItem('current list')
         // Following segment does not follow single responsibility
-        if (!savedCurrentList) {
+        if (!savedCurrentList || !model.lists.length) {
             model.lists.unshift(new List('Have You?', 'This is your default list'))
             savedCurrentList = 'Have You?'
         } 
