@@ -50,7 +50,7 @@
                         </div>
                       
                         <div class="opacity-20 peer-hover:opacity-40 | transition-all | pt-2">
-                            <p>New List</p>
+                            <p>Create List</p>
                         </div>
                     </div>
 
@@ -106,7 +106,7 @@
                     
                     <div class="my-2">
                         <button id="new-list-cancel" class="bg-sky-500 | w-20 py-2 px-3 mr-1 mt-5 | rounded-md focus:outline-sky-500" type="cancel">cancel</button>
-                        <button id="new-list-submit" class="bg-sky-800 | w-20 py-2 px-3 ml-1 mt-5 | rounded-md focus:outline-sky-500 hover:underline" type="submit">submit</button>
+                        <button id="new-list-submit" class="bg-sky-800 | w-20 py-2 px-3 ml-1 mt-5 | rounded-md focus:outline-sky-500" type="submit">submit</button>
                     </div>
             
                 </div>
@@ -142,10 +142,14 @@
                     </div>
                     <!-- new todo form. List title is placed before and todos are appended after -->
                     <div id="new-todo-form">
-                        <div class="flex flex-wrap content-center items-center w-fit | bg-slate-800 | p-4 my-4 | rounded-lg">
-                            <input class="text-black | p-1 | h-10 | rounded-md focus:outline-sky-500" type="text" id="new-todo-title" name="new-todo-title" placeholder="add new todo title" required>
-                            <input class="text-black | p-1 mx-4 | h-10 | rounded-md focus:outline-sky-500" type="date" id="new-todo-due-date">
-                            <button id="new-todo-submit" class="bg-sky-800 | py-2 px-3 | rounded-md focus:outline-sky-500" type="submit">submit</button>
+                        
+                        <div class="max-w-[640px] | bg-slate-800 | p-4 my-4 | rounded-lg">
+                            <h3 class="text-2xl | mb-5">Add New To-do</h3>  
+                            <div class="flex flex-col sm:flex-row">
+                                <input class="text-black | max-w-[15rem] my-2 p-1 mr-4 | h-10 | rounded-md focus:outline-sky-500" type="text" id="new-todo-title" name="new-todo-title" placeholder="new to-do title" required>
+                                <input class="text-black | max-w-[15rem] my-2 p-1 mr-4 | h-10 | rounded-md focus:outline-sky-500" type="date" id="new-todo-due-date" placeholder="mm/dd/yyyy">
+                                <button id="new-todo-submit" class="bg-sky-800 | my-2 w-20 h-10 | rounded-md focus:outline-sky-500" type="submit">submit</button>
+                            </div>
                         </div>
                     </div>
 
