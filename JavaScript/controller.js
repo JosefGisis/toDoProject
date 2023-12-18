@@ -112,7 +112,8 @@ const deleteListController = {
 	},
 	
 	handleSubmission() {
-		this.deleteList()
+		if (model.currentList.title !== 'Have You?') this.deleteList()
+		this.deleteToDos()
 		deleteListView.cancel()
 		view.updateContent()
 		toDoController.index()
@@ -120,8 +121,11 @@ const deleteListController = {
 	
 	deleteList() {
 		model.lists = model.lists.filter(list => list.title !== model.currentList.title)
-		model.toDos = model.toDos.filter(toDo => toDo.membership !== model.currentList.title)
 		model.currentList = model.lists[0]
+	},
+	
+	deleteToDos() {
+		model.toDos = model.toDos.filter(toDo => toDo.membership !== model.currentList.title)
 	}
 }
 
