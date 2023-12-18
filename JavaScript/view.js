@@ -155,30 +155,38 @@ const toDoView = {
 					<div class="my-2"><hr class="border-1 border-solid border-sky-500"></div>
 					
 					<div class="flex flex-row content-center justify-between flex-wrap">
-						<div class="flex items-center | min-w-[10rem] my-2 | text-lg">
+						
+					    <div class="flex items-center | min-w-[10rem] my-2 | text-lg">
 							<p>Due: <span class="text-white text-bold | p-1 rounded-md | bg-green-700">${ toDo.dueDate }</span></p>
 						</div>
 
 						<div class="flex flex-wrap items-center | my-2">
-							<h3 class="text-lg">complete</h3>
-							<div class="border-2 rounded-md | h-fit ml-2">
-								<div class="complete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
-									<div>
-										<img src="/images/checkbox.svg" width="20px" height="20px" alt="checkbox icon">
-									</div>
-									<div class="absolute translate-y-[-1.375rem] translate-x-[0.125rem] | ${ toDo.completed ? 'opacity-100' : 'opacity-0' } | transition-all">
-										<img src="/images/checkmark.svg" width="20px" height="20px" alt="checkmark">
-									</div>
-								</div>  
+						    
+							<div class="flex items-center">
+								<h3 class="text-lg">complete</h3>
+								<div class="border-2 rounded-md | h-fit ml-2">
+									<div class="complete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
+										<div>
+											<img src="/images/checkbox.svg" width="20px" height="20px" alt="checkbox icon">
+										</div>
+										<div class="absolute translate-y-[-1.375rem] translate-x-[0.125rem] | ${ toDo.completed ? 'opacity-100' : 'opacity-0' } | transition-all">
+											<img src="/images/checkmark.svg" width="20px" height="20px" alt="checkmark">
+										</div>
+									</div>  
+								</div>
+							</div>
+                            
+							<div class="flex items-center | ml-4">
+								<h3 class="text-lg text-rose-500">delete&lt!&gt</h3>
+								<div class="border-2 rounded-md | h-fit ml-2">
+									<div class="delete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
+										<img src="/images/delete-icon.svg" width="14px" height="20px" alt="icon for new list button">   
+									</div>      
+								</div>
 							</div>
 
-							<h3 class="text-lg text-rose-500 | ml-4">delete&lt!&gt</h3>
-							<div class="border-2 rounded-md | h-fit ml-2">
-								<div class="delete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
-									<img src="/images/delete-icon.svg" width="14px" height="20px" alt="icon for new list button">   
-								</div>      
-							</div>
 						</div>
+
 					</div>
 				
 				</div>
