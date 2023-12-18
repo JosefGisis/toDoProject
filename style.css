@@ -6,19 +6,11 @@
     --slate-800: #1e293b;
     --sky-500: #0ea5e9;
     --sky-800: #075985;
-    --text-xl: 1.125rem;
-    --text-xl-spacing: 1.75rem;
-    --text-2xl: 1.5rem;
-    --text-xl-spacing: 2rem;
-    --text-3xl: 1.875rem;
-    --text-xl-spacing: 2.25re;
-    --text-4xl: 2rem; 
-    --text-xl-spacing: 2.5rem;
 }
 
 .responsive-container {
     width: 100%;
-    padding: 0.225rem;
+    padding: 1rem;
     border: 2px;
     /* Slate 400 from tailwind color template */
     border-color: hex(#94a3b8); 
@@ -29,14 +21,14 @@
 @media (min-width: 640px) {
     .responsive-container {
         width: 100%;
-        padding: 0.325rem;
+        padding: 1rem;
     }
 }
 
 @media (min-width: 768px) {
     .responsive-container {
         width: 100%;
-        padding: 0.625rem;
+        padding: 1.5rem;
     }
     
 }
@@ -44,7 +36,7 @@
 @media (min-width: 960px) {
     .responsive-container {
         max-width: 960px;
-        padding: 1rem; 
+        padding: 1.5rem; 
         margin-left: auto;
         margin-right: auto;
     }

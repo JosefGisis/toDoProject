@@ -145,7 +145,7 @@ const toDoView = {
 		
 		for (let toDo of toDos) {
 			const toDoHTML = `
-				<div class="flex content-center items-center justify-between | rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 ${ toDo.completed ? 'line-through text-rose-400' : '' }">
+				<div class="flex flex-wrap content-center items-center justify-between | rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 ${ toDo.completed ? 'line-through text-rose-400' : '' }">
 
 				    <div>
 						<h3 class="rounded-lg | text-xl font-bold">${toDo.title}</h3>

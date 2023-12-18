@@ -72,25 +72,25 @@
                 <!-- This section contains responsive forms to change, add, and delete lists -->
                
                 <!-- Toggled form to change current list -->
-                <div id="change-list" class="bg-slate-700 | p-6 m-5 | hidden">
+                <div id="change-list" class="flex flex-col items-center sm:items-start | bg-slate-700 | p-6 my-5 | hidden">
     
                     <h3 class="text-2xl | mb-5">Change ToDo List</h3>  
                         
                     <div class="text-black | p-1">
-                        <select id="list-change-menu">
+                        <select class="p-1 min-w-[8rem] | rounded-md | focus:outline-sky-500" id="list-change-menu">
                         </select>
                     </div>
-                    
+        
                     <div class="my-2">
-                        <button id="change-list-cancel" class="bg-sky-500 | py-2 px-3 mr-1 mt-5 | rounded-md focus:outline-sky-500" type="cancel">cancel</button>
-                        <button id="change-list-submit" class="bg-sky-800 | py-2 px-3 ml-1 mt-5 | rounded-md focus:outline-sky-500" type="submit">submit</button>
+                        <button id="change-list-cancel" class="bg-sky-500 | w-20 py-2 px-3 mr-1 mt-5 | rounded-md focus:outline-sky-500" type="cancel">cancel</button>
+                        <button id="change-list-submit" class="bg-sky-800 | w-20 py-2 px-3 ml-1 mt-5 | rounded-md focus:outline-sky-500 hover:bg-sky-500" type="submit">change</button>
                     </div>
                 
                 </div>
 
                
                 <!-- Toggled form to create new lists -->
-                <div id="new-list" class="bg-slate-700 | p-6 m-5 | hidden">
+                <div id="new-list" class="flex flex-col items-center sm:items-start | bg-slate-700 | p-6 my-5 | hidden">
                     
                     <h3 class="text-2xl | mb-5">Enter New List Information</h3>
                         
@@ -105,15 +105,15 @@
                     </div>
                     
                     <div class="my-2">
-                        <button id="new-list-cancel" class="bg-sky-500 | py-2 px-3 mr-1 mt-5 | rounded-md focus:outline-sky-500" type="cancel">cancel</button>
-                        <button id="new-list-submit" class="bg-sky-800 | py-2 px-3 ml-1 mt-5 | rounded-md focus:outline-sky-500" type="submit">submit</button>
+                        <button id="new-list-cancel" class="bg-sky-500 | w-20 py-2 px-3 mr-1 mt-5 | rounded-md focus:outline-sky-500" type="cancel">cancel</button>
+                        <button id="new-list-submit" class="bg-sky-800 | w-20 py-2 px-3 ml-1 mt-5 | rounded-md focus:outline-sky-500 hover:underline" type="submit">submit</button>
                     </div>
             
                 </div>
 
 
                 <!-- Toggled form to delete current list -->
-                <div id="delete-list" class="bg-slate-700 | p-6 m-5 | hidden">
+                <div id="delete-list" class="bg-slate-700 | p-6 my-5 | hidden">
 
                     <h2 class="text-3xl text-center text-rose-400 | mb-5">CAUTION!</h2>
     
@@ -130,19 +130,19 @@
                 <!-- This section displays current list, new to-do form and to-dos -->
 
                 <!-- Line before todos -->
-                <div class="my-7 mx-5">
+                <div class="my-7">
                     <hr class="border-2 border-dashed border-sky-800">
                 </div>
                 
                 <!-- current list and todos -->
-                <div id="list-container" class="bg-slate-700 | p-6 m-5 | min-h-[30rem]">
+                <div id="list-container" class="bg-slate-700 | p-6 | min-h-[30rem]">
                     
                     <div id="current-list-section">
 
                     </div>
                     <!-- new todo form. List title is placed before and todos are appended after -->
                     <div id="new-todo-form">
-                        <div class="flex content-center items-center w-fit | bg-slate-800 | p-4 my-4 | rounded-lg">
+                        <div class="flex flex-wrap content-center items-center w-fit | bg-slate-800 | p-4 my-4 | rounded-lg">
                             <input class="text-black | p-1 | h-10 | rounded-md focus:outline-sky-500" type="text" id="new-todo-title" name="new-todo-title" placeholder="add new todo title" required>
                             <input class="text-black | p-1 mx-4 | h-10 | rounded-md focus:outline-sky-500" type="date" id="new-todo-due-date">
                             <button id="new-todo-submit" class="bg-sky-800 | py-2 px-3 | rounded-md focus:outline-sky-500" type="submit">submit</button>
@@ -156,7 +156,7 @@
                 </div>
 
                 <!-- Line after todos -->
-                <div class="my-7 mx-5">
+                <div class="my-7">
                     <hr class="border-2 border-dashed border-sky-800">
                 </div>
                 

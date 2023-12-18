@@ -131,7 +131,7 @@ const newToDoController = {
 	init() {
 		this.newToDoTitle = document.getElementById('new-todo-title')
 		this.newToDoSubmit = document.getElementById('new-todo-submit')
-		this.newToDoDueDate = document.getElementById('new-todo-due-date').value
+		this.newToDoDueDate = document.getElementById('new-todo-due-date')
 	},
 	
 	createEventListeners() {
@@ -149,7 +149,7 @@ const newToDoController = {
 
 	newToDo() {
 		const newToDoTitle = this.newToDoTitle.value || 'title error'
-		const newToDoDueDate = this.newToDoDueDate || 'NA'
+		const newToDoDueDate = this.newToDoDueDate.value || 'NA'
 		const newToDO = new ToDo(newToDoTitle, model.currentList.title, newToDoDueDate)
 		model.toDos.push(newToDO)
 	}
