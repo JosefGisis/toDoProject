@@ -145,35 +145,39 @@ const toDoView = {
 		
 		for (let toDo of toDos) {
 			const toDoHTML = `
-				<div class="flex flex-col content-center justify-between sm:flex-row | rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600">
+				<div class="rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 ${ toDo.completed ? 'bg-slate-600' : '' }">
 
 				    <div class="my-2">
-						<h3 class="rounded-lg | text-xl font-bold | ${ toDo.completed ? 'line-through text-rose-400' : '' }">${toDo.title}</h3>
+						<h3 class="rounded-lg | text-2xl font-bold | ${ toDo.completed ? 'line-through text-rose-400' : '' }">${toDo.title}</h3>
 						<p class="text-sm"><i>Created: ${toDo.creationDate}</i></p>
 					</div>
 					
-					<div class="flex items-center | my-2 | ${ toDo.completed ? 'line-through text-rose-400' : '' }">
-						<p>Due: ${ toDo.dueDate }</p>
-					</div>
-
-					<div class="flex items-center | my-2">
-                        <h3 class="text-lg">complete</h3>
-						<div class="border-2 rounded-md | h-fit ml-2">
-							<div class="complete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
-								<div>
-									<img src="/images/checkbox.svg" width="20px" height="20px" alt="checkbox icon">
-								</div>
-								<div class="absolute translate-y-[-1.375rem] translate-x-[0.125rem] | ${ toDo.completed ? 'opacity-100' : 'opacity-0' } | transition-all">
-									<img src="/images/checkmark.svg" width="20px" height="20px" alt="checkmark">
-								</div>
-							</div>  
+					<div class="my-2"><hr class="border-1 border-solid border-sky-500"></div>
+					
+					<div class="flex flex-row content-center justify-between flex-wrap">
+						<div class="flex items-center | min-w-[10rem] my-2 | text-lg">
+							<p>Due: <span class="text-white text-bold | p-1 rounded-md | bg-green-700">${ toDo.dueDate }</span></p>
 						</div>
 
-						<h3 class="text-lg text-rose-500 | ml-4">delete!</h3>
-						<div class="border-2 rounded-md | h-fit ml-2">
-							<div class="delete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
-								<img src="/images/delete-icon.svg" width="14px" height="20px" alt="icon for new list button">   
-							</div>      
+						<div class="flex flex-wrap items-center | my-2">
+							<h3 class="text-lg">complete</h3>
+							<div class="border-2 rounded-md | h-fit ml-2">
+								<div class="complete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
+									<div>
+										<img src="/images/checkbox.svg" width="20px" height="20px" alt="checkbox icon">
+									</div>
+									<div class="absolute translate-y-[-1.375rem] translate-x-[0.125rem] | ${ toDo.completed ? 'opacity-100' : 'opacity-0' } | transition-all">
+										<img src="/images/checkmark.svg" width="20px" height="20px" alt="checkmark">
+									</div>
+								</div>  
+							</div>
+
+							<h3 class="text-lg text-rose-500 | ml-4">delete&lt!&gt</h3>
+							<div class="border-2 rounded-md | h-fit ml-2">
+								<div class="delete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
+									<img src="/images/delete-icon.svg" width="14px" height="20px" alt="icon for new list button">   
+								</div>      
+							</div>
 						</div>
 					</div>
 				
