@@ -147,20 +147,20 @@ const toDoView = {
 			const toDoHTML = `
 				<div class="rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 ${ toDo.completed ? 'bg-slate-600' : '' }">
 
-				    <div class="my-2">
-						<h3 class="rounded-lg | text-2xl font-bold | ${ toDo.completed ? 'line-through text-rose-400' : '' }">${toDo.title}</h3>
-						<p class="text-sm"><i>Created: ${toDo.creationDate}</i></p>
+				    <div class="py-1">
+						<h3 class="rounded-lg | text-2xl font-bold | my-2 | ${ toDo.completed ? 'line-through text-rose-400' : '' }">${toDo.title}</h3>
+						<p class="text-sm | my-2"><i>Created: ${toDo.creationDate}</i></p>
 					</div>
 					
 					<div class="my-2"><hr class="border-1 border-solid border-sky-500"></div>
 					
 					<div class="flex flex-row content-center justify-between flex-wrap">
 						
-					    <div class="flex items-center | min-w-[10rem] my-2 | text-lg">
+					    <div class="flex items-center | min-w-[10rem] | text-lg | my-2 ">
 							<p>Due: <span class="text-white text-bold | p-1 rounded-md | bg-green-700">${ toDo.dueDate }</span></p>
 						</div>
 
-						<div class="flex flex-wrap items-center | my-2">
+						<div class="flex flex-wrap items-center">
 						    
 							<div class="flex items-center | my-2 mr-4">
 								<h3 class="text-lg">complete</h3>
