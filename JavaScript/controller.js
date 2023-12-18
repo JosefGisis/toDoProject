@@ -166,7 +166,7 @@ const toDoController = {
 		this.completeToDoIcons = document.querySelectorAll('.complete-todo-icon')
 		this.deleteToDoIcons = document.querySelectorAll('.delete-todo-icon')	
 		this.completeToDoIcons.forEach((icon, index) => icon.addEventListener('click', () => {this.completeToDo(index)}))
-        this.deleteToDoIcons.forEach((icon, index) => icon.addEventListener('click', () => {this.deleteToDo(index)}))
+        this.deleteToDoIcons.forEach((icon, index) => icon.addEventListener('dblclick', () => {this.deleteToDo(index)}))
 	},
 
     completeToDo(index) {

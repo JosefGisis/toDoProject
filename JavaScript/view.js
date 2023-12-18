@@ -160,7 +160,7 @@ const toDoView = {
 							<p>Due: <span class="text-white text-bold | p-1 rounded-md | bg-green-700">${ toDo.dueDate }</span></p>
 						</div>
 
-						<div class="flex flex-wrap items-center">
+						<div class="flex items-center">
 						    
 							<div class="flex items-center | my-2 mr-4">
 								<h3 class="text-lg">complete</h3>
