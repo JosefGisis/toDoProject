@@ -162,7 +162,7 @@ const toDoView = {
 
 						<div class="flex flex-wrap items-center | my-2">
 						    
-							<div class="flex items-center">
+							<div class="flex items-center | my-2 mr-4">
 								<h3 class="text-lg">complete</h3>
 								<div class="border-2 rounded-md | h-fit ml-2">
 									<div class="complete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
@@ -176,7 +176,7 @@ const toDoView = {
 								</div>
 							</div>
                             
-							<div class="flex items-center | ml-4">
+							<div class="flex items-center | my-2">
 								<h3 class="text-lg text-rose-500">delete&lt!&gt</h3>
 								<div class="border-2 rounded-md | h-fit ml-2">
 									<div class="delete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
