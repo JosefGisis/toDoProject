@@ -1,4 +1,5 @@
 /* tailwind adds one integer for each quarter rem */
+
 :root {
     --slate-50: #f8fafc;
     --slate-600: #475569;

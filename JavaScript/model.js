@@ -4,7 +4,6 @@ const model = {
     currentList: ''
 }
 
-
 class List {
     // instanceCounter provides unique key for each object instance
     static instanceCounter = 0
@@ -17,7 +16,6 @@ class List {
         List.instanceCounter++
     }
 }
-
 
 class ToDo {
     static instanceCounter = 0
@@ -32,7 +30,6 @@ class ToDo {
         ToDo.instanceCounter++
     }
 }
-
 
 const lists = {
     retrieveLists() {
@@ -64,7 +61,6 @@ const lists = {
     },
 }
 
-
 const toDos = {
     retrieveToDos() {
         const savedToDos = JSON.parse(localStorage.getItem('to-dos'))
@@ -76,7 +72,6 @@ const toDos = {
         localStorage.setItem('to-dos', JSON.stringify(model.toDos))
     },
 }
-
 
 const dataHandler = {
     retrieveAll() {
@@ -91,6 +86,5 @@ const dataHandler = {
         toDos.saveToDos()
     }
 } 
-
 
 export { model, ToDo, List, toDos, lists, dataHandler }
