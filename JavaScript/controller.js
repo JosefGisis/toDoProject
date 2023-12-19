@@ -155,18 +155,19 @@ const newToDoController = {
 		const newToDoTitle = this.newToDoTitle.value || 'title error'
 		const newToDoDueDate = this.newToDoDueDate.value || 'NA'
 		const newToDO = new ToDo(newToDoTitle, model.currentList.title, newToDoDueDate)
-		model.toDos.push(newToDO)
+		model.toDos.unshift(newToDO)
 	}
 }
 
 
 // first version 
 const toDoController = {
+	// index is essential in assigning each to-do's complete and delete button and event handlers
 	index() {
 		this.completeToDoIcons = document.querySelectorAll('.complete-todo-icon')
 		this.deleteToDoIcons = document.querySelectorAll('.delete-todo-icon')	
 		this.completeToDoIcons.forEach((icon, index) => icon.addEventListener('click', () => {this.completeToDo(index)}))
-        this.deleteToDoIcons.forEach((icon, index) => icon.addEventListener('dblclick', () => {this.deleteToDo(index)}))
+        this.deleteToDoIcons.forEach((icon, index) => icon.addEventListener('dblclick', () => {this.deleteToDo(index)}))	
 	},
 
     completeToDo(index) {
@@ -176,9 +177,18 @@ const toDoController = {
 		 * rather than changing a shallow copy. 
 		**/
 		const completedToDoId = controller.getToDos()[index].id
-		model.toDos.forEach(toDo => {
-			if (toDo.id === completedToDoId) toDo.completed = !toDo.completed ? true : false
-		})
+		for (let [index, toDo] of model.toDos.entries()) {
+			if (toDo.id === completedToDoId) {
+				if (!toDo.completed) {
+					toDo.completed = true
+					model.toDos.push(model.toDos.splice(index, 1)[0])
+				} else {
+					toDo.completed = false
+					model.toDos.unshift(model.toDos.splice(index, 1)[0])
+				} 
+				break
+			}
+		}
 		toDoView.display()
 		this.index()
 	},
