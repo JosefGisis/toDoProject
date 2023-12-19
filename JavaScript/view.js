@@ -167,10 +167,10 @@ const toDoView = {
 								<div class="border-2 rounded-md | h-fit ml-2">
 									<div class="complete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
 										<div>
-											<img src="/images/checkbox.svg" width="20px" height="20px" alt="checkbox icon">
+											<img src="/images/checkbox.svg" alt="checkbox icon" class="w-4 h-5">
 										</div>
-										<div class="absolute translate-y-[-1.375rem] translate-x-[0.125rem] | ${ toDo.completed ? 'opacity-100' : 'opacity-0' } | transition-all">
-											<img src="/images/checkmark.svg" width="20px" height="20px" alt="checkmark">
+										<div class="absolute translate-y-[-1.475rem] translate-x-[0.075rem] | ${ toDo.completed ? 'opacity-100' : 'opacity-0' } | transition-all">
+											<img src="/images/checkmark.svg" width="20px" height="20px" alt="checkmark" class="w-5 h-5">
 										</div>
 									</div>  
 								</div>
@@ -180,7 +180,7 @@ const toDoView = {
 								<h3 class="text-lg text-rose-500">delete&lt!&gt</h3>
 								<div class="border-2 rounded-md | h-fit ml-2">
 									<div class="delete-todo-icon | p-2 rounded-md | bg-slate-700 hover:bg-slate-800 | transition-all">
-										<img src="/images/delete-icon.svg" width="14px" height="20px" alt="icon for new list button">   
+										<img src="/images/delete-icon.svg" alt="icon for new list button" class="h-5 w-3.5">   
 									</div>      
 								</div>
 							</div>
