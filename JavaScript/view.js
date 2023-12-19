@@ -138,14 +138,25 @@ const listView = {
 
 // Todo element handler. Responsible for displaying todos.
 const toDoView = {
+    checkOverDue(date) {
+		if (date === 'NA') return false
+
+		const dueDate = new Date(`${date}T00:00:00`)
+		const currentDate = new Date()
+		currentDate.setHours(0, 0, 0, 0)
+		return (dueDate >= currentDate) ? false : true
+	},
+
 	display() {
 		const toDos = controller.getToDos()
 		const toDoSection = document.getElementById('todo-section')
+
         toDoSection.innerHTML = ''
 		
 		if (toDos.length) {
 			for (let toDo of toDos) {
-				const toDoHTML = `
+				const overDue = this.checkOverDue(toDo.dueDate)
+ 				const toDoHTML = `
 					<div class="rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 ${ toDo.completed ? 'bg-slate-600' : '' }">
 	
 						<div class="py-1">
@@ -158,7 +169,12 @@ const toDoView = {
 						<div class="flex flex-row content-center justify-between flex-wrap">
 							
 							<div class="flex items-center | min-w-[10rem] | text-lg | my-2 ">
-								<p>Due: <span class="text-white text-bold | p-1 rounded-md | bg-green-700">${ toDo.dueDate }</span></p>
+								<p class="after:text-sm after:italic after:ml-1 ${overDue && !toDo.completed ? "after:content-['overdue_>:_(']" : "" }">
+									Due: 
+									<span class="text-white text-bold | p-1 rounded-md | ${ overDue && !toDo.completed ? 'bg-rose-500': 'bg-green-700'}">
+										${ toDo.dueDate } 
+									</span>
+								</p>
 							</div>
 	
 							<div class="flex items-center">

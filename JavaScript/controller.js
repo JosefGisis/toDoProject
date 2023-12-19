@@ -32,6 +32,7 @@ const controller = {
 	getLists() {
 		return model.lists
 	},
+	
 }
 
 
