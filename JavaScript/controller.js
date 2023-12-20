@@ -5,13 +5,14 @@ import { changeListView, listView, toDoView, newListView, newToDoView, deleteLis
 const controller = {
 	onStart() {
 		dataHandler.retrieveAll()
-	    view.updateContent()
 		newToDoView.checkTitleField()
 		const controllerObjects = [changeListController, newListController, deleteListController, newToDoController]
 		for (let controller of controllerObjects) {
-		    controller.init()
+			controller.init()
 		    controller.createEventListeners()
 		}
+		listView.display()
+		toDoView.display()
 		toDoController.index()
 	},
 
@@ -20,8 +21,9 @@ const controller = {
 		dataHandler.saveAll()
 	},
 
+	// returns all todos that are members of the current list
 	getToDos() {
-		const toDos = model.toDos.filter(toDo => toDo.membership === model.currentList.title)
+		const toDos = model.toDos.filter(toDo => toDo.membership === model.currentList.id)
 		return toDos
 	},
 
@@ -32,7 +34,6 @@ const controller = {
 	getLists() {
 		return model.lists
 	},
-	
 }
 
 
@@ -55,13 +56,14 @@ const changeListController = {
 	handleSubmission() {
 		this.changeList()
 		changeListView.cancel()
-		view.updateContent()
+		listView.display()
+		toDoView.display()
 		toDoController.index()
 		lists.saveCurrentList()
 	},
 	
 	changeList() {
-		model.currentList = model.lists.find(list => list.title === this.listChangeMenu.value)
+		model.currentList = model.lists.find(list => list.id === Number(this.listChangeMenu.value.split(' ')[0]) - 1)
 	}
 }
 
@@ -84,11 +86,24 @@ const newListController = {
 	},
 	
 	handleSubmission() {
+		this.checkTitleAvailability()
 		this.newList()
-		view.updateContent()
+		listView.display()
+		toDoView.display()
+		toDoController.index()
 		newListView.cancel()
 		lists.saveLists()
-		toDoController.index()
+		lists.saveCurrentList()
+	},
+
+	checkTitleAvailability(){
+		for (let list of model.lists){
+			let i = 1
+			while (this.newListTitle.value === list.title){
+				this.newListTitle.value = `${this.newListTitle.value}(${i})`
+				i++
+			}
+		}
 	},
 
 	newList() {
@@ -113,20 +128,22 @@ const deleteListController = {
 	},
 	
 	handleSubmission() {
-		if (model.currentList.title !== 'Have You?') this.deleteList()
 		this.deleteToDos()
+		if (model.currentList.id !== 0) this.deleteList()
 		deleteListView.cancel()
-		view.updateContent()
+		listView.display()
+		toDoView.display()
 		toDoController.index()
-	},
-	
-	deleteList() {
-		model.lists = model.lists.filter(list => list.title !== model.currentList.title)
-		model.currentList = model.lists[0]
+	    dataHandler.saveAll()
 	},
 	
 	deleteToDos() {
-		model.toDos = model.toDos.filter(toDo => toDo.membership !== model.currentList.title)
+		model.toDos = model.toDos.filter(toDo => toDo.membership !== model.currentList.id)
+	},
+
+	deleteList() {
+		model.lists = model.lists.filter(list => list.id !== model.currentList.id)
+		model.currentList = model.lists[0]
 	}
 }
 
@@ -148,14 +165,14 @@ const newToDoController = {
 		this.newToDo()
 		newToDoView.clearFields()
 		toDoView.display()
-		toDos.saveToDos()
 		toDoController.index()
+		toDos.saveToDos()
 	},
 
 	newToDo() {
 		const newToDoTitle = this.newToDoTitle.value || 'title error'
 		const newToDoDueDate = this.newToDoDueDate.value || 'NA'
-		const newToDO = new ToDo(newToDoTitle, model.currentList.title, newToDoDueDate)
+		const newToDO = new ToDo(newToDoTitle, model.currentList.id, newToDoDueDate)
 		model.toDos.unshift(newToDO)
 	}
 }
@@ -175,7 +192,8 @@ const toDoController = {
 		/**
 		 * controller.getToDos returns the todos for the current list. The following statement gets the id property (an unique key
 		 * identifier for all todo instances) and changes its completed status to true. This changes the status of the todo itself
-		 * rather than changing a shallow copy. 
+		 * rather than changing a shallow copy. We also need to retrieve the index of the todo in order to move it to the front or 
+		 * the end of the list if it has been completed or uncompleted.
 		**/
 		const completedToDoId = controller.getToDos()[index].id
 		for (let [index, toDo] of model.toDos.entries()) {
@@ -191,6 +209,7 @@ const toDoController = {
 			}
 		}
 		toDoView.display()
+		toDos.saveToDos()
 		this.index()
 	},
 	

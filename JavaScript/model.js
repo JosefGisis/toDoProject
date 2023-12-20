@@ -12,8 +12,12 @@ class List {
         this.title = title
         this.description = description
         this.creationDate = creationDate || new Date().toLocaleString()
-        this.id = List.instanceCounter
+        const id = List.instanceCounter
         List.instanceCounter++
+
+        Object.defineProperty(this, 'id', {
+            get: () => {return id}
+        })
     }
 }
 
@@ -26,8 +30,12 @@ class ToDo {
         this.dueDate = dueDate || 'NA'
         this.creationDate = creationDate || new Date().toDateString()
         this.completed = false
-        this.id = ToDo.instanceCounter
+        const id = ToDo.instanceCounter
         ToDo.instanceCounter++
+        
+        Object.defineProperty(this, 'id', {
+            get: () => {return id}
+        })
     }
 }
 
@@ -40,20 +48,17 @@ const lists = {
     
     retrieveCurrentList() {
         let savedCurrentList = localStorage.getItem('current list')
-        // Following segment does not follow single responsibility
-        if (!savedCurrentList || !model.lists.length) {
-            model.lists.unshift(new List('Have You?', 'This is your default list'))
-            savedCurrentList = 'Have You?'
-        } 
+        savedCurrentList = !savedCurrentList || !model.lists.length ? this.createDefault() : savedCurrentList
         model.currentList = model.lists.find(list => list.title === savedCurrentList)
+    },
+    
+    createDefault() {
+        model.lists.unshift(new List('Have You?', 'This is your default list'))
+        return 'Have You?'
     },
 
     saveLists() {
         localStorage.setItem('lists', JSON.stringify(model.lists))
-    },
-
-	saveToDos() {
-        localStorage.setItem('to-dos', JSON.stringify(model.toDos))
     },
 
     saveCurrentList() {

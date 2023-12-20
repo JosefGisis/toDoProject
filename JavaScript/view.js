@@ -36,8 +36,8 @@ const changeListView = {
 
 		for (let list of lists) {
 			const option = document.createElement('option')
-			option.textContent = list.title
-			if (list.title === currentList.title) option.selected = option.disabled = true
+			option.textContent = `${list.id + 1} ${list.title}`
+			if (list.id === currentList.id) option.selected = option.disabled = true
 			listChangeMenu.appendChild(option)
 		}
 	},
@@ -210,7 +210,6 @@ const toDoView = {
 			}
 		}
 		else {
-			console.log('nothing here')
 			const toDoHTML = `
 			<div class="mt-10 mb-8">
 				<h2 class="text-center text-2xl font-bold | my-4">This list is empty.</h2>
