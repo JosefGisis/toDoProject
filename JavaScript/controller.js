@@ -197,18 +197,26 @@ const toDoController = {
 		 * the end of the list if it has been completed or uncompleted.
 		 **/
 		const completedToDoId = controller.getToDos()[index].id
+
+		const completedToDo = model.toDos.find(({id})=>id===completedToDoId)
+		completedToDo.completed = !completedToDo.completed
+
+
 		for (let [index, toDo] of model.toDos.entries()) {
-			if (toDo.id === completedToDoId) {
-				if (!toDo.completed) {
-					toDo.completed = true
-					model.toDos.push(model.toDos.splice(index, 1)[0])
-				} else {
-					toDo.completed = false
-					model.toDos.unshift(model.toDos.splice(index, 1)[0])
-				}
-				break
+			if (toDo.id !== completedToDoId) continue
+
+			if (!toDo.completed) {
+				toDo.completed = true
+				model.toDos.push(model.toDos.splice(index, 1)[0])
+			} else {
+				toDo.completed = false
+				model.toDos.unshift(model.toDos.splice(index, 1)[0])
 			}
+
+			break
+			
 		}
+		
 		toDoView.display()
 		toDos.saveToDos()
 		this.index()
