@@ -156,7 +156,7 @@ const toDoView = {
 		if (toDos.length) {
 			for (let toDo of toDos) {
 				const overDue = this.checkOverDue(toDo.dueDate)
- 				const toDoHTML = `
+				const toDoHTML = `
 					<div class="rounded-lg | bg-slate-800 | transition-all | p-3 mb-5 hover:bg-slate-600 ${ toDo.completed ? 'bg-slate-600' : '' }">
 	
 						<div class="py-1">

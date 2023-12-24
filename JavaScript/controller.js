@@ -191,32 +191,20 @@ const toDoController = {
 
 	completeToDo(index) {
 		/**
-		 * controller.getToDos returns the todos for the current list. The following statement gets the id property (an unique key
-		 * identifier for all todo instances) and changes its completed status to true. This changes the status of the todo itself
-		 * rather than changing a shallow copy. We also need to retrieve the index of the todo in order to move it to the front or
-		 * the end of the list if it has been completed or uncompleted.
-		 **/
-		const completedToDoId = controller.getToDos()[index].id
-
-		const completedToDo = model.toDos.find(({id})=>id===completedToDoId)
-		completedToDo.completed = !completedToDo.completed
-
-
-		for (let [index, toDo] of model.toDos.entries()) {
-			if (toDo.id !== completedToDoId) continue
-
-			if (!toDo.completed) {
-				toDo.completed = true
-				model.toDos.push(model.toDos.splice(index, 1)[0])
-			} else {
-				toDo.completed = false
-				model.toDos.unshift(model.toDos.splice(index, 1)[0])
-			}
-
-			break
-			
+		 * The index parameter only provides the index fot the to-dos related to the current list. In order to retrive
+		 * the to-do's index relative to model.toDos, we need to match the selected to-do's id with its position in a 
+		 * deep copy of model.toDos. The following expression retrieves the ID of the selected to-do and uses it to find
+		 * its index in model.toDos. completeToDo then changes its completion status and moves it to the top or bottom
+		 * of the list (depending on its completion status).  
+		**/
+		const toDoIndex = model.toDos.findIndex(({id}) => id === controller.getToDos()[index].id)
+		if (!model.toDos[toDoIndex].completed) {
+			model.toDos[toDoIndex].completed = true
+			model.toDos.push(model.toDos.splice(toDoIndex, 1)[0])
+		} else {
+			model.toDos[toDoIndex].completed = false
+			model.toDos.unshift(model.toDos.splice(toDoIndex, 1)[0])
 		}
-		
 		toDoView.display()
 		toDos.saveToDos()
 		this.index()
