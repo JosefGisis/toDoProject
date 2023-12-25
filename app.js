@@ -6,6 +6,21 @@ const port = 3000
 
 app.use(express.json())
 
+const knex = require('knex')({
+    client: 'mysql',
+    connection: {
+        host: 'localhost',
+        port: 3306,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME
+    }
+})
+
+knex.select('id', 'email').from('users').timeout(1000)
+knex.select().table('users').as('table_alias')
+
+
 const mysql = require('mysql')
 
 const db = mysql.createConnection({
