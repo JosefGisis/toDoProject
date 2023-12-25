@@ -10,8 +10,6 @@ function testFunction() {
 
 // setTimeout(testFunction, 1000)
 
-let message = 'message'
-
 // window is the globally scoped object. Node has the global object instead of the window object.
 // However, we cannot access variables through the global object. Rather, they are scoped to the
 // file which function as a module.

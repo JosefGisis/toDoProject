@@ -17,13 +17,13 @@ const db = mysql.createConnection({
 
 db.connect((err) => {
     if (err) {
-        console.error('error connecting to MySQL:', err)
+        console.error(`error connecting to MySQL database, ${process.env.DB_NAME}`)
     } else {
-        console.log('connected to MySQL database')
+        console.log(`connected to MySQL database, ${process.env.DB_NAME}`)
     }
 })
 
-app.get('/data', (req, res) => {
+app.get('/tables', (req, res) => {
     const query = 'SHOW TABLES'
 
     db.query(query, (err, results) => {
@@ -31,11 +31,12 @@ app.get('/data', (req, res) => {
             console.error('error executing query:', err)
             res.status(500).send('internal server error')
         } else {
-            res.json(results)
+            res(results)
         }
     })
 })
 
+// the callback function takes a request and a respnse
 app.get('/users', (req, res) => {
     const query = 'SELECT * FROM users'
 
@@ -44,7 +45,35 @@ app.get('/users', (req, res) => {
             console.error('error executing query', err)
             res.status(500).send('internal server error')
         } else {
-            res.json(results)
+            res(results)
+        }
+    })
+})
+
+// the callback function takes a request and a respnse
+app.get('/lists', (req, res) => {
+    const query = 'SELECT * FROM lists'
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('error executing query', err)
+            res.status(500).send('internal server error')
+        } else {
+            res(results)
+        }
+    })
+})
+
+// the callback function takes a request and a respnse
+app.get('/to_dos', (req, res) => {
+    const query = 'SELECT * FROM to_dos'
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('error executing query', err)
+            res.status(500).send('internal server error')
+        } else {
+            res(results)
         }
     })
 })
