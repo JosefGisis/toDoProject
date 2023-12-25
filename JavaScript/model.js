@@ -48,7 +48,7 @@ const lists = {
     
     retrieveCurrentList() {
         let savedCurrentList = localStorage.getItem('current list')
-        savedCurrentList = !savedCurrentList || !model.lists.length ? this.createDefault() : savedCurrentList
+        savedCurrentList = (!savedCurrentList || !model.lists.length) ? this.createDefault() : savedCurrentList
         model.currentList = model.lists.find(list => list.title === savedCurrentList)
     },
     
