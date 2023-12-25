@@ -10,7 +10,7 @@ const mysql = require('mysql')
 
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'JosefGisis',
+    user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: 'to_do_app'
 })
@@ -38,7 +38,7 @@ app.get('/data', (req, res) => {
 
 app.get('/users', (req, res) => {
     const query = 'SELECT * FROM users'
-    
+
     db.query(query, (err, results) => {
         if (err) {
             console.error('error executing query', err)
