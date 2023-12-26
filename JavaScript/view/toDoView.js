@@ -1,8 +1,11 @@
 import { controller } from '../controller/controller.js'
 
 const toDoView = {
-	// index is essential in assigning each to-do's complete and delete button and event handlers
-	index() {
+	init() {
+		this.toDoSection = document.getElementById('todo-section')
+	},
+	
+    index() {
 		this.completeToDoIcons = document.querySelectorAll('.complete-todo-icon')
 		this.deleteToDoIcons = document.querySelectorAll('.delete-todo-icon')
 		this.completeToDoIcons.forEach((icon, index) => icon.addEventListener('click', () => {this.completeToDo(index)}))
@@ -22,14 +25,6 @@ const toDoView = {
 		const toDoIndex = toDos.findIndex(({ id }) => id === currentToDos[index].id)
 		controller.deleteToDo(toDoIndex)
 	},
-	
-	orderToDos() {
-		const toDos = controller.getCurrentToDos()
-		return toDos.sort(toDo => {
-			if (!toDo.completed) -1
-			return 1
-		})
-	}, 
 
 	checkOverdue(date) {
 		if (date === 'NA') return false
@@ -41,10 +36,8 @@ const toDoView = {
 	}, 
 
 	display() {
-		const toDos = this.orderToDos()
-		const toDoSection = document.getElementById('todo-section')
-
-        toDoSection.innerHTML = ''
+		const toDos = controller.getCurrentToDos()
+        this.toDoSection.innerHTML = ''
 		
 		if (toDos.length) {
 			for (let toDo of toDos) {
@@ -102,7 +95,7 @@ const toDoView = {
 					</div>
 				`
 				const parser = new DOMParser()
-				toDoSection.appendChild(parser.parseFromString(toDoHTML, 'text/html').body.firstChild)
+				this.toDoSection.appendChild(parser.parseFromString(toDoHTML, 'text/html').body.firstChild)
 			}
 		} else {
 			const toDoHTML = `
@@ -112,8 +105,9 @@ const toDoView = {
 			</div>
 			`
 			const parser = new DOMParser()
-			toDoSection.appendChild(parser.parseFromString(toDoHTML, 'text/html').body.firstChild)
+			this.toDoSection.appendChild(parser.parseFromString(toDoHTML, 'text/html').body.firstChild)
 		}
+		this.index()
 	}
 }
 

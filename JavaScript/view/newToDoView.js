@@ -13,18 +13,10 @@ const newToDoView = {
 	},
 	
 	handleSubmission() {
-		this.newToDo()
-		newToDoView.clearFields()
-		toDoView.display()
-		toDoController.index()
-		toDos.saveToDos()
-	},
-
-	newToDo() {
 		const newToDoTitle = this.newToDoTitle.value || 'title error'
 		const newToDoDueDate = this.newToDoDueDate.value || 'NA'
-		const newToDO = new ToDo(newToDoTitle, model.currentList.id, newToDoDueDate)
-		model.toDos.unshift(newToDO)
+		controller.newToDo(newToDoTitle, newToDoDueDate)
+		this.clearFields()
 	},
 	
 	clearFields() {

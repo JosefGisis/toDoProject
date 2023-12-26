@@ -2,11 +2,13 @@ import { controller } from '../controller/controller.js'
 
 // Current list element handler. Responsible for displaying current list.
 const listView = {
-    display() {
-		const currentList = controller.getCurrentList()
-		const currentListSection = document.getElementById('current-list-section')
-        currentListSection.innerHTML = ''
+	init() {
+		this.currentListSection = document.getElementById('current-list-section')
+	},
 
+	display() {
+		const currentList = controller.getCurrentList()
+		this.currentListSection.innerHTML = ''
 		const currentListHTML = `
         <div>
           <h3 class="w-fit rounded-lg | bg-sky-500 | text-4xl font-bold | p-3  mb-5">${currentList.title}</h3>
@@ -15,7 +17,7 @@ const listView = {
         </div>
         `
 		const parser = new DOMParser()
-		currentListSection.appendChild(parser.parseFromString(currentListHTML, 'text/html').body.firstChild)
+		this.currentListSection.appendChild(parser.parseFromString(currentListHTML, 'text/html').body.firstChild)
 	},
 }
 
