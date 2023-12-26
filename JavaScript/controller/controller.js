@@ -35,7 +35,15 @@ const controller = {
 	},
 	
 	getCurrentToDos() {
-		return model.toDos.filter((toDo) => toDo.membership === model.currentList.id)
+		const toDos = model.toDos.filter((toDo) => toDo.membership === model.currentList.id)
+		return toDos.sort(toDo => {
+			if (!toDo.completed) return -1
+			return 1 
+		})
+	},
+
+	getOrderedToDos() {
+		return
 	},
 	
 	//************************************************************************* */
@@ -76,13 +84,7 @@ const controller = {
 	},
 	
 	completeToDo(index) {
-		if (!model.toDos[index].completed) {
-			model.toDos[index].completed = true
-			model.toDos.push(model.toDos.splice(index, 1)[0])
-		} else {
-			model.toDos[index].completed = false
-			model.toDos.unshift(model.toDos.splice(index, 1)[0])
-		}
+		model.toDos[index].completed = !model.toDos[index].completed
 		toDoView.display()
 		toDos.saveToDos()
 	},

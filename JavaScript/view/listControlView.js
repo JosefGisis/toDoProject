@@ -1,5 +1,25 @@
 import { controller } from '../controller/controller.js'
 
+const toggler = {
+    toggleChangeList() {
+        changeListView.toggleForm()
+        newListView.cancel()
+        deleteListView.cancel()
+    },
+
+    toggleNewList() {
+        changeListView.cancel()
+        newListView.toggleForm()
+        deleteListView.cancel()
+    },
+
+    toggleDeleteList() {
+        changeListView.cancel()
+        newListView.cancel()
+        deleteListView.toggleForm()
+    }
+}
+
 const changeListView = {
     init() {
         this.changeList = document.getElementById('change-list')
@@ -10,11 +30,7 @@ const changeListView = {
     },
     
     createEventListeners() {
-        this.changeListButton.addEventListener('click', () => {
-            this.toggleForm()
-            newListView.cancel()
-            deleteListView.cancel()
-        })
+        this.changeListButton.addEventListener('click', () => toggler.toggleChangeList())
         this.changeListCancel.addEventListener('click', () => this.cancel())
         this.changeListSubmit.addEventListener('click', () => this.handleSubmission())
     },
@@ -52,6 +68,62 @@ const changeListView = {
 	},
 }
 
+const newListView = {
+    init() {
+        this.newList = document.getElementById('new-list')
+        this.newListButton = document.getElementById('new-list-button')
+        this.newListCancel = document.getElementById('new-list-cancel')
+        this.newListSubmit = document.getElementById('new-list-submit')
+        this.newListTitle = document.getElementById('new-list-title')
+        this.newListDescription = document.getElementById('new-list-description')
+    },
+    
+    createEventListeners() {
+        this.newListButton.addEventListener('click', () => toggler.toggleNewList())
+        this.newListCancel.addEventListener('click', () => this.cancel())
+        this.newListTitle.addEventListener('input', () => this.checkTitleField())
+        this.newListSubmit.addEventListener('click', () => this.handleSubmission())
+    },
+    
+    handleSubmission() {
+        this.checkTitleAvailability()
+        controller.newList(this.newListTitle.value, this.newListDescription.value)
+        this.cancel()
+    },
+    
+    checkTitleAvailability() {
+        const lists = controller.getLists()
+        for (let list of lists) {
+            if (list.title !== this.newListTitle.value) continue
+            let i = 1
+            while (this.newListTitle.value === list.title) {
+                this.newListTitle.value = `${this.newListTitle.value}(${i})`
+                i++
+            }
+        }
+    },
+    
+	checkTitleField() {
+        this.newListSubmit.style.backgroundColor = this.newListTitle.value ? 'rgb(14 165 233)' : 'rgb(7, 89, 133)'
+        this.newListSubmit.disabled = this.newListTitle.value ? false : true
+	},
+    
+	toggleForm() {
+        if (this.newList.classList.contains('hidden')) {
+            this.newList.classList.replace('hidden', 'block')
+			this.checkTitleField()
+        } else this.newList.classList.replace('block', 'hidden')
+	},
+    
+	cancel() {
+        this.newList.classList.replace('block', 'hidden')
+		this.clearFields()
+	},
+
+    clearFields() {
+        this.newListTitle.value = this.newListDescription.value = ''
+    }
+}
 
 const deleteListView = {
     init() {
@@ -63,89 +135,25 @@ const deleteListView = {
     },
     
     createEventListeners() {
-        this.deleteListButton.addEventListener('click', () => {
-            this.toggleForm()
-            newListView.cancel()
-            changeListView.cancel()
-        })
+        this.deleteListButton.addEventListener('click', () => toggler.toggleDeleteList())
         this.deleteListCancel.addEventListener('click', () => this.cancel())
         this.deleteListSubmit.addEventListener('click', () => this.handleSubmission())
     },
     
     handleSubmission() {
-        controller.deleteCurrentToDos()
-        if (controller.getCurrentList().id !== 0) controller.deleteList()
+        if (controller.getCurrentToDos()) controller.deleteCurrentToDos()
+        if (controller.getCurrentList().id !== 0) controller.deleteCurrentList()
         this.cancel()
     },
 
     toggleForm() {
-		if (this.deleteList.classList.contains('hidden')) this.deleteList.classList.replace('hidden', 'block')
-		else this.deleteList.classList.replace('block', 'hidden')
+        if (this.deleteList.classList.contains('hidden')) this.deleteList.classList.replace('hidden', 'block')
+        else this.deleteList.classList.replace('block', 'hidden')
     },
 
     cancel() {
         this.deleteList.classList.replace('block', 'hidden')
     },
 } 
-
-
-const newListView = {
-    init() {
-        this.newList = document.getElementById('new-list')
-        this.newListButton = document.getElementById('new-list-button')
-        this.newListCancel = document.getElementById('new-list-cancel')
-        this.newListSubmit = document.getElementById('new-list-submit')
-        this.newListTitle = document.getElementById('new-list-title')
-        this.newListDescription = document.getElementById('new-list-description').value
-    },
-    
-    createEventListeners() {
-        this.newListButton.addEventListener('click', () => {
-            this.toggleForm()
-            changeListView.cancel()
-            deleteListView.cancel()
-        })
-        this.newListCancel.addEventListener('click', () => this.cancel())
-        this.newListTitle.addEventListener('input', () => this.checkTitleField())
-        this.newListSubmit.addEventListener('click', () => this.handleSubmission())
-    },
-    
-    handleSubmission() {
-        this.checkTitleAvailability()
-        controller.newList(this.newListTitle.value, this.newListDescription)
-        this.cancel()
-    },
-    
-    checkTitleAvailability() {
-        for (let list of controller.getLists()) {
-            let i = 1
-            while (this.newListTitle.value === list.title) {
-                this.newListTitle.value = `${this.newListTitle.value}(${i})`
-                i++
-            }
-        }
-    },
-    
-    clearFields() {
-		this.newListTitle.value = this.newListDescription.value = ''
-	},
-
-	checkTitleField() {
-		this.newListSubmit.style.backgroundColor = this.newListTitle.value ? 'rgb(14 165 233)' : 'rgb(7, 89, 133)'
-        this.newListSubmit.disabled = this.newListTitle.value ? false : true
-	},
-
-	toggleForm() {
-		if (this.newList.classList.contains('hidden')) {
-			this.newList.classList.replace('hidden', 'block')
-			this.checkTitleField()
-        } else this.newList.classList.replace('block', 'hidden')
-	},
-
-	cancel() {
-		this.newList.classList.replace('block', 'hidden')
-		this.clearFields()
-	},
-}
 
 export {changeListView, newListView, deleteListView}
