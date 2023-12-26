@@ -23,9 +23,13 @@ const toDoView = {
 		controller.deleteToDo(toDoIndex)
 	},
 	
-	getToDos() {
-		// need to order toDos, putting completed last
-	},
+	orderToDos() {
+		const toDos = controller.getCurrentToDos()
+		return toDos.sort(toDo => {
+			if (!toDo.completed) -1
+			return 1
+		})
+	}, 
 
 	checkOverdue(date) {
 		if (date === 'NA') return false
@@ -36,9 +40,8 @@ const toDoView = {
 		return (dueDate >= currentDate) ? false : true
 	}, 
 
-
 	display() {
-		const toDos = this.getToDos()
+		const toDos = this.orderToDos()
 		const toDoSection = document.getElementById('todo-section')
 
         toDoSection.innerHTML = ''
