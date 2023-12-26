@@ -10,7 +10,11 @@ const changeListView = {
     },
     
     createEventListeners() {
-        this.changeListButton.addEventListener('click', () => this.toggleForm())
+        this.changeListButton.addEventListener('click', () => {
+            this.toggleForm()
+            newListView.cancel()
+            deleteListView.cancel()
+        })
         this.changeListCancel.addEventListener('click', () => this.cancel())
         this.changeListSubmit.addEventListener('click', () => this.handleSubmission())
     },
@@ -59,7 +63,11 @@ const deleteListView = {
     },
     
     createEventListeners() {
-        this.deleteListButton.addEventListener('click', () => this.toggleForm())
+        this.deleteListButton.addEventListener('click', () => {
+            this.toggleForm()
+            newListView.cancel()
+            changeListView.cancel()
+        })
         this.deleteListCancel.addEventListener('click', () => this.cancel())
         this.deleteListSubmit.addEventListener('click', () => this.handleSubmission())
     },
@@ -92,7 +100,11 @@ const newListView = {
     },
     
     createEventListeners() {
-        this.newListButton.addEventListener('click', () => this.toggleForm())
+        this.newListButton.addEventListener('click', () => {
+            this.toggleForm()
+            changeListView.cancel()
+            deleteListView.cancel()
+        })
         this.newListCancel.addEventListener('click', () => this.cancel())
         this.newListTitle.addEventListener('input', () => this.checkTitleField())
         this.newListSubmit.addEventListener('click', () => this.handleSubmission())
