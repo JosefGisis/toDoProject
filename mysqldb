@@ -9,8 +9,8 @@ CREATE TABLE users(
 -- @block
 INSERT INTO users (email, username, pass_word)
 VALUES (
-    'jsquared.gisis@gmail.com',
-    'Josef Gisis',
+    'esthergisis@gmail.com',
+    'Esther Gisis',
     'somerandopassword'
 );
 
@@ -67,7 +67,7 @@ CREATE TABLE to_dos(
 -- @block
 INSERT INTO to_dos (title, creation_date, completed, due_date, membership, users_id)
 VALUES (
-    'to-do test',
+    'create necessary endpoints',
     CURRENT_DATE, 
     TRUE,
     NULL,

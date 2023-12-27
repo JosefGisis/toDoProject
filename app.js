@@ -2,8 +2,6 @@ require('dotenv').config()
 
 const express = require('express')
 const app = express()
-const port = 3000
-
 app.use(express.json())
 
 const knex = require('knex')({
@@ -17,80 +15,27 @@ const knex = require('knex')({
     }
 })
 
-knex.select('id', 'email').from('users').timeout(1000)
-knex.select().table('users').as('table_alias')
+const port = 3000
 
-
-const mysql = require('mysql')
-
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: 'to_do_app'
-})
-
-db.connect((err) => {
-    if (err) {
-        console.error(`error connecting to MySQL database, ${process.env.DB_NAME}`)
-    } else {
-        console.log(`connected to MySQL database, ${process.env.DB_NAME}`)
+app.get('/api/users', async (req, res) => {
+    try {
+        const value = await knex.select().from('users').as('all_users')
+        const otherValues = await knex.column('id', 'username').select().from('users').offset(4) 
+        res.send(otherValues)
+    } catch (error) {
+        console.error('Error fetching users:', error)
+        res.status(500).send('Internal Server Error')
     }
 })
 
-app.get('/tables', (req, res) => {
-    const query = 'SHOW TABLES'
-
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error('error executing query:', err)
-            res.status(500).send('internal server error')
-        } else {
-            res(results)
-        }
-    })
-})
-
-// the callback function takes a request and a respnse
-app.get('/users', (req, res) => {
-    const query = 'SELECT * FROM users'
-
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error('error executing query', err)
-            res.status(500).send('internal server error')
-        } else {
-            res(results)
-        }
-    })
-})
-
-// the callback function takes a request and a respnse
-app.get('/lists', (req, res) => {
-    const query = 'SELECT * FROM lists'
-
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error('error executing query', err)
-            res.status(500).send('internal server error')
-        } else {
-            res(results)
-        }
-    })
-})
-
-// the callback function takes a request and a respnse
-app.get('/to_dos', (req, res) => {
-    const query = 'SELECT * FROM to_dos'
-
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error('error executing query', err)
-            res.status(500).send('internal server error')
-        } else {
-            res(results)
-        }
-    })
+app.get('/api/to_dos', async (req, res) => {
+    try {
+        const value = await knex.select().from('to_dos')
+        res.send(value)
+    } catch (error) {
+        console.error('error fetching request', error)
+        res.status(500).send('Internal server error', error)
+    }
 })
 
 app.listen(port, () => {
