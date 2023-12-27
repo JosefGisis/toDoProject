@@ -85,28 +85,15 @@ const newListView = {
         this.newListSubmit.addEventListener('click', () => this.handleSubmission())
     },
     
+    checkTitleField() {
+        this.newListSubmit.style.backgroundColor = this.newListTitle.value ? 'rgb(14 165 233)' : 'rgb(7, 89, 133)'
+        this.newListSubmit.disabled = this.newListTitle.value ? false : true
+    },
+
     handleSubmission() {
-        this.checkTitleAvailability()
         controller.newList(this.newListTitle.value, this.newListDescription.value)
         this.cancel()
     },
-    
-    checkTitleAvailability() {
-        const lists = controller.getLists()
-        for (let list of lists) {
-            if (list.title !== this.newListTitle.value) continue
-            let i = 1
-            while (this.newListTitle.value === list.title) {
-                this.newListTitle.value = `${this.newListTitle.value}(${i})`
-                i++
-            }
-        }
-    },
-    
-	checkTitleField() {
-        this.newListSubmit.style.backgroundColor = this.newListTitle.value ? 'rgb(14 165 233)' : 'rgb(7, 89, 133)'
-        this.newListSubmit.disabled = this.newListTitle.value ? false : true
-	},
     
 	toggleForm() {
         if (this.newList.classList.contains('hidden')) {

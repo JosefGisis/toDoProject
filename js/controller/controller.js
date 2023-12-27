@@ -22,6 +22,7 @@ const controller = {
 		dataHandler.saveAll()
 	},
 	
+	// These methods retrieve data from the model
 	getCurrentList() {
 		return model.currentList
 	},
@@ -41,12 +42,8 @@ const controller = {
 			return 1 
 		})
 	},
-
-	getOrderedToDos() {
-		return
-	},
 	
-	//************************************************************************* */
+	// these methods interact with list control view
 	changeCurrentList(index) {
 		model.currentList = model.lists[index]
 		listView.display()
@@ -76,7 +73,7 @@ const controller = {
     },
 		
 	
-    //****************************************************************************** */
+    // These methods interact with the new to-do and to-do view
 	newToDo(title, dueDate) {
 		model.toDos.unshift(new ToDo(title, model.currentList.id, dueDate))
 		toDoView.display()
