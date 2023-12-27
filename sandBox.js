@@ -1,4 +1,4 @@
-const getData = async function(resource) {
+const getData = function(resource) {
     return new Promise((resolve, reject) => {
         const request = new XMLHttpRequest()
         
@@ -28,6 +28,25 @@ getData('./users.json').then(data => {
     console.log(err)
 })
 
+// another method
+fetch('/users.json').then((response) => {
+    return response.json()
+}).then(data => {
+    console.log(data)
+}).catch(err => {
+    console.log(err)
+})
+
+// This can still get pretty verbose, so lets try another method.
+const getDataAsync = async () => {
+    const response = await fetch('/toDos.json')
+    const data = await response.json()
+    return data
+}
+
+getDataAsync()
+    .then(data => {console.log(data)})
+    .catch(error => {console.log(error)})
 // getToDos('./toDos.json' ,(err, data) => {
 //     console.log('callback fired')
 //     if (err) {
