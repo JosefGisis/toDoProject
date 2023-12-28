@@ -47,6 +47,7 @@ const getDataAsync = async () => {
 getDataAsync()
     .then(data => {console.log(data)})
     .catch(error => {console.log(error)})
+    
 // getToDos('./toDos.json' ,(err, data) => {
 //     console.log('callback fired')
 //     if (err) {

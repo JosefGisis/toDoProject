@@ -3,59 +3,28 @@ CREATE TABLE users(
     id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL UNIQUE, 
     username VARCHAR(20) NOT NULL UNIQUE,
-    pass_word TEXT NOT NULL
+    pass_word TEXT NOT NULL,
+    creation_date DATE DEFAULT(CURRENT_DATE)
 );
-
--- @block
-INSERT INTO users (email, username, pass_word)
-VALUES (
-    'esthergisis@gmail.com',
-    'Esther Gisis',
-    'somerandopassword'
-);
-
--- @block
-
-SELECT * FROM users
-ORDER BY id ASC
-LIMIT 4;
-
--- @block
-CREATE INDEX email_index ON users(email);
 
 -- @block
 CREATE TABLE lists(
     id INT AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL UNIQUE,
     list_description TEXT,
-    creation_date DATE NOT NULL, 
+    creation_date DATE DEFAULT(CURRENT_DATE), 
     users_id INT, 
     PRIMARY KEY (id),
     FOREIGN KEY (users_id) REFERENCES users(id)
 );
 
--- @block
-INSERT INTO lists (title, list_description, creation_date, users_id)
-VALUES (
-    'Have You?',
-    'This is your default list.',
-    CURRENT_DATE,
-    1
-);
-
--- retrieves corresponding entries
--- @block
-SELECT * FROM users
-INNER JOIN lists
-ON lists.users_id = users.id;
-
 -- let's create a todo table
 -- @block
 CREATE TABLE to_dos(
     id INT AUTO_INCREMENT,
-    title TEXT NOT NULL,
-    creation_date DATE NOT NULL,
-    completed BOOLEAN NOT NULL,
+    title VARCHAR(255) NOT NULL UNIQUE,
+    creation_date DATE DEFAULT(CURRENT_DATE),
+    completed BOOLEAN DEFAULT FALSE,
     due_date DATE,
     PRIMARY KEY (id),
     membership INT,
@@ -64,14 +33,4 @@ CREATE TABLE to_dos(
     FOREIGN KEY (users_id) REFERENCES users(id)
 );
 
--- @block
-INSERT INTO to_dos (title, creation_date, completed, due_date, membership, users_id)
-VALUES (
-    'create necessary endpoints',
-    CURRENT_DATE, 
-    TRUE,
-    NULL,
-    5,
-    1
-);
 

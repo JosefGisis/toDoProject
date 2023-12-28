@@ -97,4 +97,10 @@ controller.onStart()
 
 window.addEventListener('beforeunload', controller.onClose)
 
+fetch('http://localhost:3000/api/users')
+	.then((response) => {return response.json()})
+	.then(data => {console.log(data)})
+	.catch(err => {console.log(err)
+})
+
 export { controller }

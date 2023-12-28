@@ -1,8 +1,12 @@
 require('dotenv').config()
 
+//const cors = require('cors')
+
 const express = require('express')
 const app = express()
+
 app.use(express.json())
+//app.use(cors())
 
 const knex = require('knex')({
     client: 'mysql',
@@ -107,6 +111,35 @@ app.get('/api/to_dos/current/:id', async (req, res) => {
     }
 })
 
+app.post('/api/users', async (req, res) => {
+    try {
+        await knex('users').insert( req.body )
+        res.send(`inserted ${ req.body }`)
+    } catch(err) {
+        console.error('error!', err)
+        res.status(500).send('ya done screwed up!')
+    }
+})
+
+app.post('/api/lists', async (req, res) => {
+    try {
+        await knex('lists').insert( req.body )
+        res.send(`inserted ${ req.body }`)
+    } catch(err) {
+        console.error('error!', err)
+        res.status(500).send('ya done screwed up!')
+    }
+})
+
+app.post('/api/to_dos', async (req, res) => {
+    try {
+        await knex('to_dos').insert( req.body )
+        res.send(`inserted ${ req.body }`)
+    } catch(err) {
+        console.error('error!', err)
+        res.status(500).send('ya done screwed up!')
+    }
+})
 
 app.listen(port, () => {
     console.log(`server is running on port ${port}`)
