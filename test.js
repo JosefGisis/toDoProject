@@ -3,7 +3,7 @@ const express = require('express')
 
 const app = express()
 app.use(express.json())
-const port = 3306
+const port = 5000
 
 const mysql = require('mysql')
 const connection = mysql.createConnection({
