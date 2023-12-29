@@ -25,9 +25,9 @@ app.get('/api/users', async (req, res) => {
     try {
         const values = await knex.select().from('users') 
         res.send(values)
-    } catch (error) {
-        console.error('Error fetching users:', error)
-        res.status(500).send('Internal Server Error')
+    } catch(err) {
+        console.error('error fetching users', err)
+        res.status(500).send('internal server error')
     }
 })
 
@@ -35,28 +35,28 @@ app.get('/api/users/:id', async (req, res) => {
     try {
         const value = await knex('users').where('id', req.params.id).select()
         res.send(value)
-    } catch (error) {
-        console.error('Error fetching users:', error)
-        res.status(500).send('Internal Server Error')
+    } catch(err) {
+        console.error('error fetching user', err)
+        res.status(500).send('internal server error')
     }
 })
 
 app.get('/api/users/lists/:id', async (req, res) => {
     try {
-        const value = await knex('lists').where('users_id', req.params.id).select()
-        res.send(value)
+        const values = await knex('lists').where('users_id', req.params.id).select()
+        res.send(values)
     } catch(err) {
-        console.error('Error fetching request', err)
+        console.error('error fetching request', err)
         res.status(500).send('internal server error')
     }
 })
 
 app.get('/api/users/to_dos/:id', async (req, res) => {
     try {
-        const value = await knex('to_dos').where('users_id', req.params.id).select()
-        res.send(value)
+        const values = await knex('to_dos').where('users_id', req.params.id).select()
+        res.send(values)
     } catch(err) {
-        console.error('Error fetching request', err)
+        console.error('error fetching request', err)
         res.status(500).send('internal server error')
     }
 })
@@ -66,7 +66,7 @@ app.get('/api/lists', async (req, res) => {
         const values = await knex.select().from('lists')
         res.send(values)
     } catch(err) {
-        console.error('error fetching request', err)
+        console.error('error fetching lists', err)
         res.status(500).send('internal server error')
     }
 })
@@ -76,18 +76,18 @@ app.get('/api/lists/:id', async (req, res) => {
         const value = await knex('lists').where('id', req.params.id).select()
         res.send(value)
     } catch(err) {
-        console.error('error fetching request', err)
+        console.error('error fetching list', err)
         res.status(500).send('internal server error')
     }
 })
 
 app.get('/api/to_dos', async (req, res) => {
     try {
-        const value = await knex.select().from('to_dos')
-        res.send(value)
-    } catch (error) {
-        console.error('error fetching request', error)
-        res.status(500).send('Internal server error')
+        const values = await knex.select().from('to_dos')
+        res.send(values)
+    } catch(err) {
+        console.error('error fetching to-dos', err)
+        res.status(500).send('internal server error')
     }
 })
 
@@ -116,8 +116,8 @@ app.post('/api/users', async (req, res) => {
         await knex('users').insert( req.body )
         res.send(`inserted ${ req.body }`)
     } catch(err) {
-        console.error('error!', err)
-        res.status(500).send('ya done screwed up!')
+        console.error('error posting new user', err)
+        res.status(500).send('internal server error')
     }
 })
 
@@ -126,18 +126,18 @@ app.post('/api/lists', async (req, res) => {
         await knex('lists').insert( req.body )
         res.send(`inserted ${ req.body }`)
     } catch(err) {
-        console.error('error!', err)
-        res.status(500).send('ya done screwed up!')
+        console.error('error posting new list', err)
+        res.status(500).send('internal server error')
     }
 })
 
 app.post('/api/to_dos', async (req, res) => {
     try {
         await knex('to_dos').insert( req.body )
-        res.send(`inserted ${ req.body }`)
+        res.send(`inserted new to-do as ${req.body.title}`)
     } catch(err) {
-        console.error('error!', err)
-        res.status(500).send('ya done screwed up!')
+        console.error('error posting new to-do', err)
+        res.status(500).send('internal server error')
     }
 })
 
