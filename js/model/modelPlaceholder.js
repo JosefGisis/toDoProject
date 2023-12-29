@@ -1,15 +1,11 @@
 require('dotenv').config()
-const userModel = require('./userModel')
-const listsModel = require('./listsModel')
-const toDoModel = require('./toDoModel')
 
-//const cors = require('cors')
+const cors = require('cors')
 
 const express = require('express')
 const app = express()
-
 app.use(express.json())
-//app.use(cors())
+app.use(cors())
 
 const knex = require('knex')({
     client: 'mysql',
@@ -52,4 +48,4 @@ app.listen(port, () => {
     console.log(`server is running on port ${port}`)
 })
 
-console.log(userModel, listsModel, toDoModel)
+console.log(userModel)

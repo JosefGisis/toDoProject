@@ -1,6 +1,6 @@
-const knex = require('../../node_modules/knex') 
+const knex = require('./knexConnection.js') 
 
-const userModel = {
+const users = {
     async getUsers (req, res) {
         try {
             const values = await knex.select().from('users') 
@@ -52,4 +52,4 @@ const userModel = {
     }
 }
 
-module.exports.userModel = userModel
+module.exports.users = users
