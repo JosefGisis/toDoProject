@@ -53,4 +53,14 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.delete('/:id', async (req, res) => {
+    try {
+        await knex('users').where('id', req.params.id).del()
+        res.send(`deleted ${ req.body }`)
+    } catch(err) {
+        console.error('error deleting user', err)
+        res.status(500).send('internal server error')
+    }
+})
+
 module.exports = router

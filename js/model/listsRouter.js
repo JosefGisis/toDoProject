@@ -33,4 +33,14 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.delete('/:id', async (req, res) => {
+    try {
+        await knex('lists').where('id', req.params.id).del()
+        res.send(`deleted ${ req.body }`)
+    } catch(err) {
+        console.error('error deleting list', err)
+        res.status(500).send('internal server error')
+    }
+})
+
 module.exports = router
